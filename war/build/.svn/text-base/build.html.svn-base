@@ -1,0 +1,120 @@
+<div id="build">    
+  
+<div style="float:left;width:175px;margin-right: 5px;">
+<div id="strategymenuResizer" style="float:left;padding:0px; width:175px; height:300px;" >
+    <div id="strategymenu" >
+            <h3><a href="#">My Strategy</a></h3>
+            <div id="mystrategy">
+
+            </div>
+            <h3><a href="#">My Contest</a></h3>
+            <div id="mychamp">
+
+            </div>
+            <h3><a href="#">Strategy I Follow</a></h3>
+            <div id="ifollow">
+
+            </div>
+            <h3><a href="#">Bookmark</a></h3>
+            <div id="iwatch">
+
+            </div>
+
+    </div>
+    </div>
+    <div id="champ-list" style="float:left;padding:0px; width:175px;">
+          
+             
+      </div>
+   
+</div>
+    <div id="build-subcontent" style="float:left;width:700px;margin-left: 10px;">
+    </div>
+</div>
+<script>
+jQuery('#build').ready(function() {
+                $( "#strategymenu" ).accordion({
+                        active: 0,
+                        fillSpace: true
+		});
+                $( "#strategymenuResizer" ).hide();
+              
+              
+                 showChampList($('#champ-list'),175);
+                 
+                var initLoad = null; 
+                if(profile != null)
+                {
+                    $( "#strategymenuResizer" ).show();
+                    if(strategylist!=null)
+                      for(key in strategylist)
+                      {
+                          var ref = '/#!/strategy/'+strategylist[key].strategyid;
+                          if(strategylist[key].relation == Constants.Strategy.OWNER){
+                              if( Constants.Strategy.TYPE_GENERAL != strategylist[key].type){
+                                $('#mychamp').append('<li><a href='+ref+' class="menulink">'+strategylist[key].strategyname+'</a></li>');
+                                initLoad = strategylist[key].strategyid;
+                              }
+                              else{
+                                  $('#mystrategy').append('<li><a href='+ref+' class="menulink">'+strategylist[key].strategyname+'</a></li>');
+                                  if(initLoad == null) initLoad = strategylist[key].strategyid;
+                              }
+                          }
+                          else if(strategylist[key].relation == 1)
+                                $('#ifollow').append('<li><a href='+ref+' class="menulink">'+strategylist[key].strategyname+'</a></li>');
+                          else
+                                $('#iwatch').append('<li><a href='+ref+' class="menulink">'+strategylist[key].strategyname+'</a></li>');
+                      } // end of adding strategy list in the menu
+
+                     /* $('#strategymenu div li a').click(function( e ) {
+                             e.preventDefault();
+                             var si = $(e.target).attr('href');
+
+                             var st = strategylist[si];
+                             $('#strategytitle').text($(e.target).text());
+                             loadBuildTabs(st, null);
+                             return false;
+                       });*/ /// done with the click function this might go the the global space
+                }
+                    if(param == null || param =="")
+                         loadContentTabParam('build/strategy.html',$('#build-subcontent'),initLoad);
+                     else
+                         loadContentTabParam('build/strategy.html',$('#build-subcontent'),param);
+
+                   /*
+                       if(referred != null)
+                       {
+                           var s = strategylist[referred.strategyid];
+                           if(s!=null)  loadBuildTabs(strategylist[referred.strategyid], null);
+                           else         loadBuildTabs(referred, null);
+                            referred = null;
+                       }
+                       else if(referredchamp != null){
+                           loadBuildTabs(null, referredchamp);
+                           referredchamp = null;
+                       }else if(strategylist != null && strategylist.length > 0){
+
+                           for(key in strategylist)
+                           {
+                                loadBuildTabs(strategylist[key], null);
+                                break;
+                           }
+                       }else 
+                           loadBuildTabs(null, null);
+                      
+                } // end of if profile != null
+                else {
+                    if(referred != null){
+                        loadBuildTabs(referred, null);
+                        referred = null;
+                    }else if(referredchamp != null){
+                           loadBuildTabs(null, referredchamp);
+                           referredchamp = null;
+                    }else{
+                        $('#titleblock').hide();
+                        $( "#buildtabs" ).tabs("add", "loginform.html", "Login/Signup", 0);
+                    }
+                }*/
+});
+
+</script>

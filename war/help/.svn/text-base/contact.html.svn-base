@@ -1,0 +1,73 @@
+<div id="contactus" style="width:600px;">
+    
+    <form action="" id="feedback-form" >
+            <div style="font-size:15px !important; color:#39C;margin-top: 10px;">
+                Have a great idea? Share with us! Report a bug.  
+                Or if you like it, simply praise us!!! We value every form of your  feedback. 
+                <br/>
+                <h5>OR write us at tickertrek@gmail.com</h5>
+            </div>
+            <div id="feedback-validate"></div>
+	<fieldset>
+            <div id="feedback-type"  style="float:left;margin-left: 5px;">
+		<input type="radio" id="idea" name="feedback-type" value="0" checked="checked"/><label for="idea">New Idea</label>
+                <input type="radio" id="bug" name="feedback-type"  value="1" /><label for="bug">Bug</label>
+                <input type="radio" id="praise" name="feedback-type" value="2" /><label for="praise">Praise</label>
+                
+            </div>
+            <input  id="feedback-short" name="feedack-short" class="value" value="Give some feedback here..." 
+                    onclick="if ( value == 'Give some feedback here...' ) { value = ''; }" 
+                    onblur="if( value == '' || value.toString().trim(value).length == 0){ value = 'Give some feedback here...'; }"
+                    style="width:500px;float:left;"/>
+            <textarea  class="value" id ="feedback-long" name ="feedback-long" 
+               onclick="if ( value == 'Tell us more about it (optional)...' ){value='';}"
+               onblur="if( value == '' || value.toString().trim(value).length == 0){ value = 'Tell us more about it (optional)...'; }" 
+               class="value" style="width:500px; height:100px">Tell us more about it (optional)...</textarea>
+        </fieldset>
+	</form>
+    <div id="contactus-submit" class="btn-blue">Submit</div>
+</div>
+<script>
+        jQuery('#contactus').ready(function(){
+             $( "#feedback-type" ).buttonset();
+             $('#feedback-short').attr('value', 'Give some feedback here...');
+             $('#feedback-long').attr('value', 'Tell us more about it (optional)...');
+             $('#contactus-submit').click(function(e){
+                                    bfTrace("contactus vutton clicked");
+                                    var fbshort = $( "#feedback-short" ),
+                                        fblong = $( "#feedback-long" ),
+                                        allfbfields = $( [] ).add( fbshort ).add( fblong );
+
+                                    var bValid = true;
+                                    allfbfields.removeClass( "ui-state-error" );
+                                    bValid = bValid && checkEmpty(fbshort,$( "#commonmessage" ), "Please dont keep the feedback field empty!!!");
+                                    bValid = bValid && checkInputChange(fbshort, "Give some feedback here...", $( "#commonmessage" ),"Please give us some feedback.");
+                                    bValid = bValid && checkLength( fbshort, 1, 200, $( "#commonmessage" ), "Please use the details field if your feedback is too long." );
+                                    bValid = bValid && checkLength( fblong, 0, 1000, $( "#commonmessage" ), "Feedback is too long!!!" );
+                                    fblong.attr('value','');
+                                    if ( bValid ) {
+						
+						
+                                                $.ajax({
+                                                    type: "post",
+                                                    url: "genericuseractionauthenticated",
+                                                    dataType: "json",
+                                                    data:$('#feedback-form').serialize()+'&action=feedback',
+                                                    error:function(){
+                                                       hideLoading($("#contactus")); 
+                                                       updateTips(tips, "Bad Bad Server!!!");
+                                                    },
+                                                    success:function(data){
+                                                        hideLoading($("#contactus"));
+                                                        if(data.status == 'success')
+                                                        addCommonMessage(data.message);
+                                                    else
+                                                        addCommonMessage(data.message);
+                                                    }
+                                            });
+                                            showLoading($("#contactus"));
+
+					}
+                                });
+        });
+</script>

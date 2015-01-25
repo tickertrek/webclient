@@ -1,0 +1,72 @@
+<div id="contest">    
+  
+
+ <div  style="float:left;padding:0px; width:180px; height:150px;margin-top:10px; float:left;clear:left;">
+    <div id="contest-menu" >
+            <h3><a href="#">Current Contest</a></h3>
+            <div id="contest-current-contest"> 
+
+            </div>
+            <h3><a href="#">Past Contest</a></h3>
+            <div id="contest-past-contest">
+
+            </div>
+            <!--<h3><a href="#">My Contest</a></h3>
+            <div id="contest-my-contest">
+
+            </div>-->
+            
+    </div>
+    
+     
+    </div>
+    <div id="contest-subcontent" style="float:left;width:700px;margin-left: 10px;">
+    </div>
+   
+
+
+
+<script>
+    jQuery('#contest').ready(function() {
+        
+        $( "#contest-menu" ).accordion({
+                        //active: 0,
+                        alwaysOpen: true,
+                        //event: "mouseover",
+			fillSpace: true,
+                        //collapsible: true,
+                        autoHeight: true,
+                        navigation: true
+                        
+		});
+        var initLoad = null;        
+        if(clist!=null){
+                         //$('#contest-current-contest').empty();
+                         for(key in clist)
+                         {    if( Constants.Championship.ACTIVE == clist[key].status){  
+                                 $('#contest-current-contest').append('<li><a href=/#!/contest/'+key+' class=\"menulink\">'+clist[key].name+"</a></li>");
+                                 initLoad = key;
+                              }else if(Constants.Championship.ENDED == clist[key].status){
+                                  $('#contest-past-contest').append('<li><a href=/#!/contest/'+key+' class=\"menulink\">'+clist[key].name+"</a></li>");
+                              }
+                         }
+                         
+                     /* if(strategylist!=null)
+                      for(key in strategylist)
+                      {
+                          if(strategylist[key].relation == Constants.Strategy.OWNER){
+                              if( Constants.Strategy.TYPE_GENERAL != strategylist[key].type)
+                                $('#contest-my-contest').append('<li><a href="'+strategylist[key].strategyid+'"class="menulink">'+strategylist[key].strategyname+'</a></li>');
+                              }
+                          } // end of adding strategy list in the menu
+*/
+         }
+         //if(param != null)bfTrace("valueof param at contest.html:" + param);
+         if(param == null || param == "")
+             loadContentTabParam('contest/csignup.html',$('#contest-subcontent'),initLoad);
+         else
+             loadContentTabParam('contest/csignup.html',$('#contest-subcontent'),param);
+         
+        
+    });
+</script>

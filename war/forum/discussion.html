@@ -1,0 +1,409 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+   
+  <div id="discussion">
+  <div style="clear:both;font-size: 1.5em;">
+      <button id="newtopic" style="float:left;">Create New Topic</button>
+      <div style="float:right;">
+          <div style="float:right">
+              <input id="searchkey" name="searchkey" value="Enter your search term here"
+                       onclick="if ( value == 'Enter your search term here' ) { value = ''; }"
+                       onblur="if( value == '' || value.toString().trim(value).length == 0){value = 'Enter your search term here';}"
+                       style="width:400px;height:30px;margin-top: 2px;float:right;"/>
+          </div>
+          <div style="float:right">
+                <button id="searchtopic" style="float:right;margin-left: 10px;">Search</button>
+          </div>
+      </div>
+  </div>
+  <div style="float:left;">
+  <div style="width:550px;clear:left;float:left;">
+  <div id="newtopicblock" class="module" style="float:left;margin-top:10px;padding:10px;width:500px;">
+          <div style="clear:left;" >
+            <label for="newtopic-title" class="display" style="width:75px;">Topic Title </label>
+            <input  id ="newtopic-title" name="topictitle" class="value" style="width:350px;height:20px">
+         </div>
+         <div  style="clear:left;">
+            
+            <textarea cols="65" rows="2" id ="newtopic-comment" name ="comment" 
+               onclick="if ( value == 'Enter your comment here...' ){value='';}"
+               onblur="if( value == '' || value.toString().trim(value).length == 0){ value = 'Enter your comment here...'; }" class="value">Enter your comment here...</textarea>
+         </div>
+         <div style="clear:both;" align="left">
+            <button id="newtopic-submit" style="margin:10px">Submit</button>
+            <button id="newtopic-cancel" style="margin:10px">Cancel</button>
+         </div>
+  </div>
+
+  <div id="comment-block" class="module" style="clear:left;margin-top: 10px;padding:10px;width:500px">
+     <div id="commenttext" style="float:left;margin-top: 10px;">
+          
+            <textarea cols="65" rows="2" id ="comment" name ="comment" class="value" 
+               onclick="if ( value == 'Enter your comment here...' ) { value = ''; }"
+               onblur="if( value == '' || value.toString().trim(value).length == 0){ value = 'Enter your comment here...'; }">Enter your comment here...</textarea>
+      </div>
+      <div style="margin:10px;clear:both;">
+            <button id="comment-submit" >Submit</button>
+            </div>
+            
+ </div>
+      
+  <div id="searchresult"  class="module" style="clear:left;float:left;font-size: 1.5em;">
+  </div>
+ 
+ <div style="clear:left;">
+        <div style="padding-top:15px;">
+            <h3 id="topictitle"><u>Topic:</u><b></b> <b></b><b></b></h3>
+        </div>
+        <div id="topicheader" style="padding-bottom:20px;padding-top:5px;float:left">
+          <a href="#" id="addcomment" style="padding-right:20px">Write a Comment</a>
+         
+        </div>
+        <div style="background-color:#DDD; clear:left; font-size:12px; border: 1px solid; border-color: #CCC">
+            <b></b><div id="toptab" style="padding: 5px 5px 5px 5px;"></div>
+        </div>
+        <div id="thread" style=" border:1px solid; border-color: #FFF;clear:left;">
+          
+        </div>
+</div>
+  </div>
+
+
+ <div style="float:right;width:304px;margin-left:25px">
+  <div  class="ui-widget-content ui-corner-all" style="padding:0px;width:304px;float:right;clear:right;margin-top:10px;">
+        <h2 class="ui-widget-header ui-corner-all" style="width:300px;float:right;margin:0px;padding: 2px;">Most Discussed Topics</h2>
+		<div id="mdtopic" style="padding:30px;margin:0px;">
+                    <div id="disctopic" style="font-size:1.5em;">
+                        <!--Most discussed topics go here-->
+                    </div>
+
+                </div>
+ </div>
+
+
+ <div  class="ui-widget-content ui-corner-all" style="padding:0px;width:304px;float:right;clear:right;margin-top: 10px;margin-left:25px">
+        <h2 class="ui-widget-header ui-corner-all" style="width:300px;float:right;margin:0px;padding: 2px;">Most Recent Topics</h2>
+		<div id="mrtopic" style="padding:30px;margin:10px;">
+                    <div id="rectopic" style="font-size:1.5em;">
+                        <!--Most recent topics go here-->
+                    </div>
+
+                </div>
+ </div>
+</div>
+
+
+  </div>
+  </div>
+
+  <script>
+         //Display the topic here.
+        var toggle;
+        var replyId = "0";
+        function postCommentOnTopic(param){
+            //alert(param);
+            var bgcolor;
+            var border;
+            if(profile == null){
+                addCommonMessage("Please login to be able to comment on a topic");
+                return;
+            }
+            if(toggle){
+                bgcolor = "#AAA";
+                toggle = false;
+                border = "none";
+            } else {
+                bgcolor = "#FFF";
+                toggle = true;
+                border = "1px solid #666";
+            }
+            $.ajax({
+                    type: "post",
+                    url: "genericuseractionauthenticated",
+                    dataType: "json",
+                    data:param+'&action=postcomment',
+                    error:function(){
+                        addCommonMessage("There is some error while submitting your comment!");
+                    },
+                    success:function(data){
+                        if(data.status == 'success')
+                        {
+                          var comment = data.data;
+
+                        $('#thread').append("<div style='background-color:"+bgcolor+"; border:"+border+"'>"
+                            +"<div style='float:left; padding-top:10px; padding-bottom:20px;"
+                            +"padding-right: 15px; padding-left: 15px'>Commented by: "
+                            +"<a name='user' href='"+comment.commentedbyid+"'>"+comment.commentedbyname
+                            +"</a></div>"
+                            +"<div style='"+" background-color:"+bgcolor+"; padding-top:10px; padding-bottom:20px;  padding-left: 10px;'> <div>"
+                            +"<h3> Title: "+displayTopic.title+" &nbsp; &nbsp; &nbsp; Date: "+comment.commentdate+"</h3></div>"
+                            +"<div align='right' style='padding-right:30px'><a name='reply' href="+comment.commentid+">Reply</a></div>"
+                            +"<hr > <div style='padding-left: 120px;'>"+comment.comment+"</div> </div> </div>");
+                          modifyReplyNUserLinks();
+                          //modifyUserLinks();
+                          $('#comment').val("");
+                        }if(data.status == 'error')
+                                addCommonMessage(data.message);
+                    }
+            });
+        }
+        function modifyReplyNUserLinks(){
+            //alert("Inside modifyReplyLinks()");
+            $('#thread div div a').click(function(e){
+                e.preventDefault();
+                var tagName = $(e.target).attr('name');
+                var linkval = $(e.target).attr('href');
+                //alert("name:"+tagName);
+                if('reply' == tagName){
+                    replyId = linkval;
+                    $('#comment').focus();
+                    //alert("reply:"+linkval);
+                } else if('user' == tagName){
+                    //Go to user page.
+                    loadUserPage(linkval);
+                }
+                return false;
+            });
+        }
+         function loadUserPage(userId){
+            //alert("loading user page:"+userId);
+        }
+         function createTopic(params){
+            //alert("parameters:"+params);
+            $.ajax({
+                            type: "post",
+                            url: "genericuseractionauthenticated",
+                            dataType: "json",
+                            data:params+'&action=createtopic',
+                            error:function(){
+                                addCommonMessage("There is some error while creating topics!");
+                            },
+                            success:function(data){
+                                if(data.status == 'success')
+                                {
+                                  displayTopic = data.data;
+                                  loadTopicThread(displayTopic.topicid)
+                                  //$( "#forumtabs" ).tabs("url",1,"./forum/topicthread.html");
+                                  //$( "#forumtabs" ).tabs("load",1);
+                                }if(data.status == 'error')
+                                        addCommonMessage(data.message);
+                            }
+                    });
+        }
+         function loadTopicThread(topicId){
+             if(topicId == null)
+                 return;
+             var param = "topicid="+topicId;
+             //alert("-"+param+"&action=gettopic"+"-");
+             //alert(topicId);
+             $.ajax({
+                            type: "post",
+                            url: "genericuseractionpublic",
+                            dataType: "json",
+                            data:param+"&action=gettopicthread",
+                            //data:"action=getforumtopics",
+                            error:function(){
+                                addCommonMessage("There is some error while retrieving topic comments!");
+                            },
+                            success:function(data){
+                                //alert("Success in loadTopicThread");
+                                if(data.status == 'success'){
+                                    displayTopic = data.data;
+                                    if(displayTopic != null) {
+                                        $('#topictitle').text('')
+                                                        .append(displayTopic.title);
+                                        $('#toptab').text('')
+                                                    .append("Posts: "+displayTopic.postcount+" - Last post: "
+                                            +displayTopic.lastpost);
+                                        var comments = displayTopic.comments;
+                                        var bgcolor;
+                                        var border;
+                                        toggle = false;
+                                        $('#thread').empty();
+                                        for(key in comments) {
+                                            if(toggle){
+                                                bgcolor = "#AAA";
+                                                toggle = false;
+                                                border = "none";
+                                            } else {
+                                                bgcolor = "#FFF";
+                                                toggle = true;
+                                                border = "1px solid #666";
+                                            }
+                                            $('#thread').append("<div style='background-color:"+bgcolor+"; border:"+border+"'>"
+                                                +"<div style='float:left; padding-top:10px; padding-bottom:20px;"
+                                                +"padding-right: 15px; padding-left: 15px'>Commented by: "
+                                                +"<a name='user' href='"+comments[key].commentedbyid+"'>"+comments[key].commentedbyname
+                                                +"</a></div>"
+                                                +"<div style='"+" background-color:"+bgcolor+"; padding-top:10px; padding-bottom:20px;  padding-left: 10px;'> <div>"
+                                                +"<h3> Title: "+displayTopic.title+" &nbsp; &nbsp; &nbsp; Date: "+comments[key].commentdate+"</h3></div>"
+                                                +"<div align='right' style='padding-right:30px'><a name='reply' href="+comments[key].commentid+">Reply</a></div>"
+                                                +"<hr > <div style='padding-left: 120px;'>"+comments[key].comment+"</div> </div></div>");
+                                            modifyReplyNUserLinks();
+                                        }
+                                        $('#newtopicblock').hide();
+                                        $('#comment').text('');
+                                        $('#comment-block').show();
+                                    } else {
+                                        $('#topictitle').append("Topic title here");
+                                        $('#toptab').append("Replies: 2 - Last post: today");
+                                    }
+                                } else if(data.status == 'error'){
+                                    addCommonMessage(data.message);
+                                }
+                            }
+
+            });
+         }
+         function searchTopic(param){
+            var topics;
+            $.ajax({
+                            type: "post",
+                            url: "genericuseractionpublic",
+                            dataType: "json",
+                            data:param+'&action=searchtopics',
+                            error:function(){
+                                addCommonMessage("There is some error while searching topics!");
+                            },
+                            success:function(data){
+                                if(data.status == 'success')
+                                {
+                                  topics = data.data;
+                                  if(data.resultsize == '0') {
+                                      $("#searchresult").append("<div align='left'>"
+                                      +"Your search criteria did not match with any existing record."
+                                      +"</div>"
+                                        );
+                                  }
+                                  for(key in topics){
+                                      $("#searchresult").append("<div align='left'>"
+                                      +"<b>Title:</b><a href='"+topics[key].topicid+"'>"+topics[key].title+"</a></div>"
+                                      +"<div align='left' style='padding-bottom:25px;'>"
+                                      +"<b>Created By</b>:"+topics[key].createdbyname
+                                      +"&nbsp;&nbsp;&nbsp;&nbsp;<b>Create Date</b>:"+topics[key].createdate
+                                      +"&nbsp;&nbsp;&nbsp;&nbsp;<b>Number of posts</b>:"+topics[key].postcount
+                                      +"&nbsp;&nbsp;&nbsp;&nbsp;<b>Last commented on</b>:"+topics[key].lastpost
+                                      +"</div>");
+                                  }
+
+                                  $('#searchresult a').click(function( e ) {
+                                        e.preventDefault();
+                                        var topicid = $(e.target).attr('href');
+                                        loadTopicThreadFromSearch(topicid);
+                                    });
+                                }if(data.status == 'error') {
+                                    $("#searchresult").append("<div align='left'>"
+                                      +"Your search criteria did not match with any existing record."
+                                      +"</div>"
+                                        );
+                                        addCommonMessage(data.message);
+                                }
+                            }
+                    });
+        }
+          jQuery('#discussion').ready(function() {
+           $.ajax({
+                            type: "post",
+                            url: "genericuseractionpublic",
+                            dataType: "json",
+                            data:"action=getforumtopics",
+                            error:function(){
+                                addCommonMessage("There is some error while retrieving topics!");
+                            },
+                            success:function(data){
+                                //alert(data.status);
+                                var recentTopics;
+                                var mostDscsdTpcs;
+                                if(data.status == 'success') {
+                                    recentTopics = data.recenttopics;
+                                    mostDscsdTpcs = data.mostdiscussedtopics;
+                                    for(key in recentTopics) {
+                                        $('#rectopic').append("<li><a href='"+recentTopics[key].topicid+"'>"
+                                            +recentTopics[key].title+"</a></li> ");
+                                    }
+                                    for(key in mostDscsdTpcs) {
+                                        $('#disctopic').append("<li><a href='"+mostDscsdTpcs[key].topicid+"'>"
+                                            +mostDscsdTpcs[key].title+"</a> </li>");
+                                    }
+                                    $('#disctopic li a').click(function( e ) {
+                                        e.preventDefault();
+                                        var topicid = $(e.target).attr('href');
+                                        loadTopicThread(topicid);
+                                    });
+                                    $('#rectopic li a').click(function( e ) {
+                                        e.preventDefault();
+                                        var topicid = $(e.target).attr('href');
+                                        loadTopicThread(topicid);
+                                    });
+
+                                }else if(data.status == 'error') {
+                                    addCommonMessage(data.message);
+                                }
+                            }
+                    });
+
+            
+            $('#newtopicblock').hide();
+            $('#newtopic').button();
+            $('#newtopic').click(function( e ) {
+                e.preventDefault();
+                if(profile == null){
+                    addCommonMessage("Please login to be able to create a new topic");
+                    return;
+                }
+                e.preventDefault();
+              //console.log('Selectedtab:'+ref);
+                //createTopic($('#topictitle').serialize()+'&'+$('#comment').serialize());
+                $('#comment-block').hide();
+                $('#newtopicblock').show();
+                $('#newtopic-submit').button();
+                $('#newtopic-cancel').button();
+                $('#newtopic-submit').click(function(e){
+                  e.preventDefault();
+                  //console.log('Selectedtab:'+ref);
+                  createTopic($('#newtopic-title').serialize()+'&'+$('#newtopic-comment').serialize());
+                });
+                $('#newtopic-cancel').click(function(e){
+                  e.preventDefault();
+                  //console.log('Selectedtab:'+ref);
+                  $('#newtopic-comment').text('');
+                  $('#newtopic-title').text('');
+                  $('#newtopicblock').hide();
+                  $('#comment-block').show();
+                 });
+            });
+            
+            $('#searchtopic').button();
+            $('#searchtopic').click(function( e ) {
+               e.preventDefault();
+              //console.log('Selectedtab:'+ref);
+              $("#searchresult").html("");
+              searchTopic($('#searchkey').serialize());
+            });
+
+            $('#comment-submit').button();
+            $('#comment-cancel').button();
+            $('#comment-submit').click(function(e){
+              e.preventDefault();
+              postCommentOnTopic("topicid="+displayTopic.topicid
+                  +"&"+$('#comment').serialize()+"&replyid="+replyId);
+            });
+            
+            $('#addcomment').click(function(e){
+                e.preventDefault();
+                $('#comment').focus();
+                return false;
+            });
+
+          });
+
+
+
+
+    </script>
+
+   

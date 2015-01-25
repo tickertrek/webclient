@@ -1,0 +1,29 @@
+
+   
+ 
+   <div id="myacc-tabs" style="overflow:auto;border:0px;">
+            <ul>
+
+                <li style="padding-left: 0px;"><a href="mytickertrek.html">My TickerTrek</a></li>
+               
+                
+               
+
+
+            </ul>
+   </div>
+ <script>
+   jQuery('#myacc-tabs').ready(function() {
+       
+     $( "#myacc-tabs" ).tabs({selected:0,
+			ajaxOptions: {
+				error: function( xhr, status, index, anchor ) {
+					$( anchor.hash ).html(
+						"Couldn't load this tab. We'll try to fix this as soon as possible. " +
+						"If this wouldn't be a demo." );
+				}
+			}
+		});
+        });
+	
+   </script>

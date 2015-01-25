@@ -1,0 +1,69 @@
+<div id="helpmenu3">
+    <h3 class="question"><a href="#">How do I place a new Order?</a></h3>
+    <div>
+    <p class="helpAnswer">From your homepage, use the left hand side box to select the strategy which you would like to add an order. Then, click on the “New Order” tab and enter the appropriate fields listed such as symbol, exchange, quantity, etc. Next, “Submit Order”where you should see a confirmation window to confirm your order information. Press “Confirm Order” to place the final order. A successful order summary will be shown if the order is submitted successfully.  
+    <br/><br/>    
+    You can also fill up an order form by simply clicking on any of the buttons “Repeat Order”, “Re Order”, “Sell”, or “Cover” available on the “Recent Orders” and “Portfolio” tabs.
+      </p>  
+    <img src="images/help/enter_order.png" style="width:100%"/>
+    </div>
+    
+    <h3  class="question"><a href="#">What type of order can I place?</a></h3>
+    <div><p class="helpAnswer">
+    You can place “Market”, “Limit” and “Stop” orders. We do not support short sell orders currently. Due to the nature of our delayed market data feed, it takes approximately 10-15 minutes for an order to complete processing.
+    </p>
+    
+    </div>
+     
+    <h3 class="question"><a href="#">Can I cancel/update my orders?</a></h3>
+    <div><p class="helpAnswer">
+    You are not allowed to update/cancel a “Market” order during open market hours. However, you can Update/Cancel any “Limit”/”Stop” orders approximately after 10-15 minutes from order submission time (provided the order was not executed). You can place/update/cancel any order when market is closed.
+    </p></div>
+    
+    <h3 class="question"><a href="#">How to cancel/update an order?</a></h3>
+    <div><p class="helpAnswer">
+   Go to “Recent Orders” tab. If the order is not executed yet, “Cancel/Update” buttons will be shown by the order. Press the appropriate buttons. If you cancel the order a success/error will be showed up immediately. If you want to update an order, the order form will be populated with the current order information. Make any changes and submit the order and a success message will be showed when the executed order is complete.
+    <br/><br/>
+    <span class="helpNote">NOTE: You might not be able to update/cancel an order all the time.</span>
+    </p></div>
+    
+    <h3 class="question"><a href="#">Why my market order is not executing immediately?</a></h3>
+    <div><p class="helpAnswer">
+   Due to the nature of our delayed market data feed, it takes approximately 10-15 minutes to start processing an order. However, your order will be matched with the price of the stock at the time when you submitted the order during opening hours. If you submit a Market order when the market is closed it will be triggered during the next opening hour.  
+    </p></div>
+    
+    <h3 class="question"><a href="#">My Order got canceled. Why?</a></h3>
+    <div><p class="helpAnswer">
+   Order can get canceled for for he following reasons 
+<br/>1. Insufficient funding in the account when the order gets triggered.
+<br/>2. Insufficient amount of stocks in the specific strategy. 
+<br/>3. Canceled by User.
+<br/><br/>
+To see the specific reason click on the order status in “Recent Orders” tab.
+    </p></div>
+    
+    <h3 class="question"><a href="#">Why its saying “Invalid Symbol” even though the symbol does exist?</a></h3>
+    <div><p class="helpAnswer">
+   It might mean the symbol/ticker is not currently in our database and we do not support it. You can request a new symbol for trading through the feedback tab. (Submit it as a bug!)
+    </p></div>
+    
+    
+    
+    <h3 class="question"><a href="#">Which stocks can I buy and sell in TickerTrek®?</a></h3>
+    <div><p class="helpAnswer">
+   Most major companies listed in BSE/NSE. However, we do not currently support a stock that you are interested in ordering, please make a request through “Feedback” button. We will try our best to make it available. 
+    </p></div>
+    
+    <h3 class="question"><a href="#">Why am I allowed to make an order even though I don’t have enough funds available for that purchase?</a></h3>
+    <div><p class="helpAnswer">
+   An order will not be blocked from submission because the order may be allowed later based on the order condition and the future funds available in your account. However, if your account doesn’t have sufficient funding when the order occurs, it will be canceled. To see the exact reason for he cancellation click on the status of the order in “Recent Orders” tab.   
+    </p></div>
+</div>
+<script>
+        jQuery('#helpmenu3').ready(function(){
+            $( "#helpmenu3" ).accordion({
+			autoHeight: false,
+			navigation: true
+		});
+        });
+</script>

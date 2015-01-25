@@ -1,0 +1,40 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+      
+      <div style="float:left" id="login-signup">
+      
+               <div class="ui-widget-content ui-corner-all" style="margin-left:100px;float:left;clear:left;padding:20px;width:350px;">
+
+                       <div style=""> <label for="un1" class="display"style="float:left;width:100px;margin:10px;text-align:right">User ID (Email):</label>
+                           <input id="un1" class="value" name="email" value="Email" onfocus="if ( value == 'Email' ) { value = ''; }" style="width:150px;float:right;clear:right;margin:10px"/></div>
+                       <div style=""><label for="pw1" class="display"style="float:left;width:100px;margin:10px;text-align:right;position:relative;top:10px;">Password:</label>
+                           <input type="password" class="value" id="pw1" name="password" value="Password" onfocus="if ( value == 'Password' ) { value = ''; }" style="width:150px;float:right;margin:10px"/></div>
+                   <div style="clear:both;float:left;margin:20px">
+                       <div id="login1" class="btn-blue" style="margin-left:120px;float:left;">Login</div>
+                       <div class="btn-light-green" id="signup1" style="margin-left:20px;float:right;">Sign up</div>    
+                  </div> 
+                       
+               </div>
+
+                 
+          
+      </div>
+ <script>
+jQuery('#login-signup').ready(function(){
+  $('#login1').click(function(e){
+              e.preventDefault();
+             // var ref = $('#tabsjs').tabs('option','selected');
+              //console.log('Selectedtab:'+ref);
+                var ref =0;
+                login($('#un1').serialize()+'&'+$('#pw1').serialize()+'&action=login&ref='+ref);
+           });
+  $('#signup1').click(function(e) {
+                    e.preventDefault();
+                    signupWindow();	
+            });
+});
+</script>

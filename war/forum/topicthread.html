@@ -1,0 +1,77 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript">
+        
+        
+        $(document).ready(function() {
+           
+
+            
+
+            $('#backtohome').click(function( e ) {
+                e.preventDefault();
+                $( "#forumtabs" ).tabs("url",1,"./forum/discussion.html");
+                $( "#forumtabs" ).tabs("load",1);
+            });
+            $('#searchtopic').click(function( e ) {
+                e.preventDefault();
+                $( "#forumtabs" ).tabs("url",1,"./forum/searchtopic.html");
+                $( "#forumtabs" ).tabs("load",1);
+            });
+            modifyReplyNUserLinks();
+            //modifyUserLinks();
+
+        });
+
+        
+        /*
+        function modifyUserLinks(){
+            //alert("Inside modifyReplyLinks()");
+            $('#thread div a').click(function(e){
+                e.preventDefault();
+                var userId = $(e.target).attr('href');
+                alert("User Id:"+userId);
+                return false;
+            });
+        }*/
+       
+    </script>
+  </head>
+  <body>
+      <div style="padding-top:15px;">
+          <h3 id="topictitle"><u>Topic:</u><b></b> <b></b><b></b></h3>
+      </div>
+      <div id="topicheader" style="padding-bottom:20px;padding-top:5px;float:left">
+          <a href="#" id="addcomment" style="padding-right:20px">Write a Comment</a>
+          <a href="#" id="searchtopic" style="padding-right:20px">Search Topic</a>
+          <a href="#" id="backtohome" style="padding-right:20px"><< Back to Discussion Home</a>
+      </div>
+      <div style="background-color:#DDD; width: 100%;clear:both; font-size:12px; border: 1px solid; border-color: #CCC">
+          <b></b><div id="toptab" style="padding: 5px 5px 5px 5px;"></div>
+      </div>
+      <br>
+      <div id="thread" style="width:100%; border:1px solid; border-color: #FFF;">
+          <!--<div style="width:15%; float:left; background-color: #AAA; padding-top:10px; padding-bottom:20px;
+               padding-left: 5px;">
+              author profile
+          </div>
+          <div style="width:80%; padding-top:10px; padding-bottom:20px;  padding-left: 10px;">
+              <div>
+                   title and date
+              </div>
+              <hr width="75%">
+              <div>
+                    actual comment
+              </div>
+          </div>-->
+      </div>
+      
+  </body>
+</html>

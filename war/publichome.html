@@ -1,0 +1,144 @@
+<div id="publichome" style="padding:0px !important; border:0px !important;">
+                <div style="float:left; margin-bottom: 2px;">
+
+                    <div id="scrollingText">
+                        <div class="scrollingHotSpotLeft"></div>
+                        <div class="scrollingHotSpotRight"></div>
+                        <div class="scrollWrapper">
+                            <div class="scrollableArea" id="quote-scroll"><p></p></div>
+                        </div>
+                    </div>
+
+
+
+              </div>
+    <div style="float:right;width:325px;">
+        <div style="float:right;width:325px;padding:0px;position:relative!important;">   
+        <div class="header-green" style="width: 315px;"><span style="font-size:15px !important;">Have an account?</span></div>
+                <div class="module" style="float:left;padding:5px;width:310px;">
+                          <input id="un" name="email" value="Email" class="value" onfocus="if ( value == 'Email' ) { value = ''; }"
+                        onblur="if( value == '' || value.toString().trim(value).length == 0){ value = 'Email'; }"
+                       style="width:150px;float:left;margin-top: 10px;"/>
+                        <input type="password" id="pw" name="password" class="value" value="Password" onfocus="if ( value == 'Password' ) { value = ''; }"
+                                onblur="if( value == '' || value.toString().trim(value).length == 0){ value = 'Password'; }" 
+                               style="width:110px;float:left;margin-top: 10px;"/>
+                        <div  class="btn-blue" id="login" style="float:right;margin-right: 10px;font-size: 10px !important;">Login</div>  
+                        <!--<div class="btn-light-green" id="signup-2"style="float:right;margin-right:10px;">Sign Up Free!</div>-->
+                        <a href="#" style="color:#39C; font-size:xx-small; padding-top: 0px;clear:left;float:left;margin-left: 5px;" id="forgotpwd">Forgot Password</a>
+
+            </div>
+         </div>
+       <!-- <div class="" style="margin-left:0px; float:right;width:325px;background-color:white;clear:right;">
+            <div style="padding-top:5px;float:left;"><div style="font-weight:normal;font-size: 18px;color:#39C;width:300px;float:left;"> Play & Win Exciting Prize.</div></div>
+             <div style="padding-top:5px;float:left"><div style="font-weight: normal;font-size: 18px;color:#39C;width:300px;float:left;"> Earn for your Expert Pick.</div></div>
+            <div style="padding-top:5px;float:left;"><div style="font-weight: normal;font-size: 18px;color:#39C;float:left;"> Learn without Risking Money.</div></div>
+            <div style="padding-top:5px;clear:left;font-family: Helvetica, sans-serif;"><div style="font-weight:normal;font-size: 18px;color:#39C;"> Follow an Expert to Beat the Market.</div></div>
+
+        </div>-->
+        <div style="float:left;width: 320px;margin-top: 10px;">
+         <div class="header-blue" style="width: 320px;float:left;font-size: 15px!important;">How to Play?</div>
+         <div style="margin-top: 10px!important;padding:10px!important;font-size: 15px !important; color:#39C;text-align: justify;">
+           <p> Start investing with virtual cash. If your Return on Investment is better than others you win exciting prize!!!</p>
+         </div>
+     </div>
+
+     <div style="float:left;width: 320px;margin-top: 0px!important;">
+         <div class="header-blue" style="width: 320px;float:left;font-size: 15px!important;">How to Earn?</div>
+         <div style="margin-top: 10px!important;padding:10px!important;font-size: 15px !important; color:#39C;text-align: justify;">
+             <p>You think you are the investing guru? Create a strategy with virtual cash. 
+             Publish your trades and earn subscription fee!!! </p>
+         </div>
+     </div>
+     <div id="index-champ-list" class="ui-widget-content ui-corner-all" style="float:left!important;padding:0px;  width:325px;border:0px solid #13518E;margin-right: 0px;">
+          <!--<div class="header-lightblue" style="font-size:15px !important;">Current and Upcoming Contests</div>-->
+      </div>            
+    </div>
+    <div>
+                     
+
+                        <div id="slider"  class="nivoSlider" style="float:left;">
+
+                            <img src="images/slider/learnstocktrading.jpeg" alt="" />
+                            <img src="images/slider/jointheinvestmentchampionship.jpg" alt=""  />
+                           <!-- <img src="images/slider/newtoinvestment.jpg" alt=""  />-->
+                            <img src="images/slider/investmentgurus2.jpg" alt="" />
+                            
+                            <!-- <img src="images/slider/newtoinvestment2.jpg" alt="" />-->
+                        </div>
+
+
+<!-- // slider -->
+
+
+     <div style="float:left;">    
+     <div class="header-blue" style="width: 610px;"><span style="font-size: 20px;">What is TickerTrek?</span></div>
+     <div style="width: 600px;padding:10px;font-size: 15px !important; color:#39C;text-align: justify;">
+         TickerTrek® allows you to create your own virtual portfolio, develop a strategy for investing, and follow 
+         other users that aren’t all talk (because you can actually track their performance).
+     </div>
+     
+     <iframe width="610" height="340" src="http://www.youtube.com/embed/_kzSvxnEFag?wmode=transparent&rel=0" frameborder="0" allowfullscreen wmode="Opaque"></iframe>
+      </div>  
+      
+     </div>               
+       <script>
+       jQuery('#publichome').ready(function(){
+          function getQuoteListUpdate(){
+    $.ajax({
+                type: "post",
+                url: "quotehandle",
+                dataType: "json",
+                data:'action='+Constants.PublicData.QUOTE_LIST,
+                error:function(){
+                    //addCommonMessage("something bad happened.");
+                },
+                success:function(data){
+                   // console.log(data);
+                    if(data.status == 'success')
+                    {
+                        $('#quote-scroll').empty();
+                        var ql = data['quotelist'];
+                        for(var i =0; i < ql.length; i++){
+                            var q = ql[i];
+                            var l = $("<p>");
+                            var c = "#3BB000";
+                            if(q.change < 0)c="#ED2024";
+                            l.html('<div style="min-width:165px;">'+q.symbol +" <br> <span style='font-size:12px !important;color:"+c+" !important;'>"+q.price + " "+q.change + " ("+q.percentagechange+ ")     </span></div>");
+                            l.appendTo( $('#quote-scroll'));
+                        }
+                        $("div#scrollingText").smoothDivScroll({autoScroll: "always", autoScrollDirection: "endlessloopright", autoScrollStep: 1, autoScrollInterval: 15});
+                        // Mouse over
+                        $("div#scrollingText").bind("mouseover", function(){
+                                    $("div#scrollingText").smoothDivScroll("stopAutoScroll");
+                        });
+                        // Mouse out
+                        $("div#scrollingText").bind("mouseout", function(){
+                                $("div#scrollingText").smoothDivScroll("startAutoScroll");
+                        });
+                      
+                    }
+                }
+       });
+}
+
+          //$('#menu-user').hide();
+          $('#signup-2').click(signUp);
+          $("#forgotpwd").click(function(e) {
+             forgotPWDWindow();
+            }); 
+          $("#login").click(function(e) {
+            //var ref = $('#tabsjs').tabs('option','selected');
+
+            login($('#un').serialize()+'&'+$('#pw').serialize()+'&action=login&ref=0');
+            return e.preventDefault();
+          }); //end of login click function
+
+          getQuoteListUpdate();
+          loadChampList();
+           $('#slider').nivoSlider({
+            animSpeed:500, // Slide transition speed
+            pauseTime:5000// How long each slide will show    
+        });
+        
+      });
+       </script>

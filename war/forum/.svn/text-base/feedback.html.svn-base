@@ -1,0 +1,111 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+    <div id="feed-back">
+  
+      <div id="fbfrom">
+        <div style="clear:both; margin-top: 40px;" >
+            <label for="feedbacktitle" class="display">Title:</label>
+            <input  id ="feedbacktitle" name="feedbacktitle" class="value" style="width:150px;height:20px">
+        </div>
+        <div  style="clear:both;">
+            <label for="feedback"  class="display">Comment: </label>
+            <textarea cols="50" rows="4" id ="feedback" name ="feedback" class="value"></textarea>
+        </div>
+        <div style="clear:both;" align="center">
+            <button id="continue" style="margin:10px">Continue</button>
+            <button id="cancelto" style="margin:10px">Cancel</button>
+        </div>
+      </div>
+      <div id="fbconfirm" style="clear:both; margin: 40px;" align="center">
+          <div id="fbconfirmtxt" style="clear:both;" align="left">
+              
+          </div>
+          <div style="clear:both; margin:20px;" align="center">
+            <button id="submit" style="margin:10px">Submit</button>
+            <button id="cancel" style="margin:10px">Cancel</button>
+        </div>
+
+      </div>
+      <div id ="fbthanku" style="clear:both; margin: 40px;" align="center">
+          Thank you for submitting the feedback.
+          <div style="clear:both;" align="center">
+            <button id="goon" style="margin:10px">Continue</button>
+            <button id="goelsewhr" style="margin:10px">Cancel</button>
+        </div>
+      </div>
+        </div>
+ <script>
+        jQuery('#feed-back').ready(function() {
+            $('#fbconfirm').hide();
+            $('#fbthanku').hide();
+            
+            $('#continue').button();
+            $('#cancelto').button();
+            $('#submit').button();
+            $('#cancel').button();
+            $('#goon').button();
+            $('#goelsewhr').button();
+            
+            $('#continue').click(function(e){
+              e.preventDefault();
+              if(profile == null){
+                    addCommonMessage("Please login to be able to submit feedback.");
+                    return;
+                }
+                if($('#feedbacktitle').val().trim().length == 0 || $('#feedback').val().trim().length == 0) {
+                    addCommonMessage("Please write something for title and comment.");
+                    return;
+                }
+              //console.log('Selectedtab:'+ref);
+              //postFeedback($('#feedbacktitle').serialize()+'&'+$('#feedback').serialize());
+
+              $('#fbconfirm').show();
+              $('#fbfrom').hide();
+              $('#fbconfirmtxt').html("");
+            $('#fbconfirmtxt').append("Title: &nbsp; &nbsp; "+$('#feedbacktitle').val()+"<br>");
+            $('#fbconfirmtxt').append("Comment: &nbsp; &nbsp; "+$('#feedback').val());
+            
+            });
+            $('#cancel').click(function(e){
+              e.preventDefault();
+              $('#fbconfirm').hide();
+              $('#fbthanku').hide();
+              $('#fbfrom').show();
+             });
+
+             $('#submit').click(function(e){
+              e.preventDefault();
+              var params = $('#feedbacktitle').serialize()+'&'+$('#feedback').serialize();
+              $.ajax({
+                    type: "post",
+                    url: "genericuseraction",
+                    dataType: "json",
+                    data:params+'&action=postfeedback',
+                    error:function(){
+                        addCommonMessage("There is some error while submitting your feedback!");
+                    },
+                    success:function(data){
+                        if(data.status == 'success')
+                        {
+                          $('#fbconfirm').hide();
+                          $('#fbthanku').show();
+                        }if(data.status == 'error')
+                                addCommonMessage(data.message);
+                    }
+                });
+
+             });
+             $('#goon').click(function(e){
+                 e.preventDefault();
+                 $('#fbconfirm').hide();
+                 $('#fbthanku').hide();
+                 $('#fbfrom').show();
+                 $('#feedbacktitle').val('');
+                 $('#feedback').val('');//html("");
+             });
+          });
+    </script>

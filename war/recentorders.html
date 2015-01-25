@@ -1,0 +1,178 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<table id="recent-orders" style="display:none"></table>
+<script>
+ 
+ function  cancelOrder(i){
+     sendOrderRequest(Constants.Order.ORDER_CANCEL, i);
+ }
+function  reOrder(i){
+    setOrder(i);
+    order['action'] = Constants.Order.ORDER_NEW;
+    $('#buildtabs').tabs('select',1);
+}
+function  updateOrder(i){
+    setOrder(i);
+    order['orderid'] = i;
+    order['action'] = Constants.Order.ORDER_UPDATE;
+    $('#buildtabs').tabs('select',1);
+}
+function  repeatOrder(i){
+    setOrder(i);
+    order['action'] = Constants.Order.ORDER_NEW;
+    $('#buildtabs').tabs('select',1);
+}
+function sellOrder(i){
+    setOrder(i);
+    order['action'] = Constants.Order.ORDER_NEW;
+    order['ordertype'] = Constants.Order.ORDER_RCODE["Sell"];
+    $('#buildtabs').tabs('select',1);
+}
+function coverOrder(i){
+    setOrder(i);
+    order['action'] = Constants.Order.ORDER_NEW;
+    order['ordertype'] = Constants.Order.ORDER_RCODE["Buy"];
+    $('#buildtabs').tabs('select',1);
+}
+
+function setOrder(id) {
+  var td = document.getElementById('recent-orders').rows['row'+id].cells;
+
+  //console.log(td);
+  order = new Array();
+  var s = $(td[1]).text();
+  order['symbol']= s.substring(0, s.indexOf('@'));
+  order['ex']= Constants.Exchange.EX_RCODE[s.substring(s.indexOf('@')+1)];
+  order['quantity']= $(td[2]).text();
+  var op = $(td[3]).text();
+  var i = op.indexOf('@');
+  if(i!=-1){order['pricetype']= Constants.Order.PRICE_RCODE[op.substring(0, i)]; order['price']= op.substring(i+1);}
+  else order['pricetype']= Constants.Order.PRICE_RCODE[op];
+  order['ordertype']= Constants.Order.ORDER_RCODE[$(td[4]).text()];
+  order['term']= Constants.Order.TERM_RCODE[$(td[5]).text()];
+  //console.log(order);
+ 
+}
+function  showComment(comment){
+  //var td = document.getElementById('recent-orders').rows['row'+id].cells;
+  //var comment = $(td[10]).text();
+  $( "#dlgmessage").text(comment);
+  $( "#messge-dialog" ).dialog( "open" );
+}
+function sendOrderRequest(action, id){
+    $.ajax({
+            type: "post",
+            url: "orderhandle",
+            dataType: "json",
+            data: "action="+action+"&orderid="+id,
+            error:function(){
+                alert("error occured!!!");
+            },
+            success:function(data){
+               // console.log(data);
+                if(data.status == 'success')
+                {
+                   addCommonMessage( data.message);
+                   var s = $('#buildtabs').tabs('option','selected');
+                   $('#buildtabs').tabs('load',s);
+
+                }
+                else
+                    addCommonMessage( data.message);
+
+            }
+        });
+}
+
+jQuery('#recent-orders').ready(function() {
+        var show = false;
+        // if its not the owner then action field will be hidden
+        if(currstrategy.relation != Constants.Strategy.OWNER)
+            show = true;
+function formatRecentOrder(data){
+    if(data.status=='success'){
+        for(var i=0;i<data.rows.length;i++){
+           
+            //data.rows[i].cell[0] = '<a href="/#!/strategy/'+data.rows[i].cell[0]+'">'+strategylist[data.rows[i].cell[0]].strategyname;
+            data.rows[i].cell[0] = dateFormatter(data.rows[i].cell[0]);
+            data.rows[i].cell[1] = data.rows[i].cell[1] + '<br/>'+'@'+Constants.Exchange.EXCHANGE_CODE[data.rows[i].cell[9]];
+            data.rows[i].cell[3] =  Constants.Order.PRICETYPE_CODE[data.rows[i].cell[10]] + '<br/>'+'@'+data.rows[i].cell[3] ;
+            var orderType = data.rows[i].cell[4];
+            data.rows[i].cell[4] = Constants.Order.ORDER_CODE[data.rows[i].cell[4]];
+            data.rows[i].cell[5] = Constants.Order.TERM_CODE[data.rows[i].cell[5]];
+            var status = data.rows[i].cell[6];
+            data.rows[i].cell[6] = "<a href=\"javaScript:void(0)\" "
+                                + "onclick=\"javaScript:showComment(\'"+ data.rows[i].cell[11] +"\')\">"
+                                +Constants.Order.ORDER_STATUS_CODE[data.rows[i].cell[6]]+"</a>";
+            if(status != Constants.Order.ORDER_EXECUTED){
+                data.rows[i].cell[7] = "N/A";
+                data.rows[i].cell[8] = "N/A";
+            }else
+                data.rows[i].cell[8] = dateFormatter(data.rows[i].cell[8]);
+            if(status == Constants.Order.ORDER_PROCESSING)
+                            data.rows[i].cell[9] = '<button onclick="cancelOrder(\'' + data.rows[i].id + '\')" >Cancel</button> '
+                                    + '<button onclick="updateOrder(\'' + data.rows[i].id + '\')" >Update</button>';
+                        else if(status == Constants.Order.ORDER_CANCELED)
+                            data.rows[i].cell[9] ='<button onclick="reOrder(' + data.rows[i].id + '\')" >Re TradeOrder</button> ';
+                        else if(status == Constants.Order.ORDER_EXECUTED) {
+                            if(orderType == Constants.Order.ORDER_BUY) //The order was for buy so, the button should be sell
+                                data.rows[i].cell[9] ='<button onclick="repeatOrder(\'' + data.rows[i].id + '\')" >Repeat</button> ' +
+                                    '<button onclick="sellOrder(\'' + data.rows[i].id + '\')" >Sell</button> ';
+                            else 
+                               data.rows[i].cell[9] ='<button onclick="repeatOrder(\'' + data.rows[i].id + '\')" >Repeat</button> ' +
+                                    '<button onclick="coverOrder(\'' + data.rows[i].id + '\')" >Cover</button> ';
+                        }
+                        else data.rows[i].cell[9] ="";
+
+
+         }
+                     return data;
+       
+    }else{
+       if(data.errorCode == Constants.ExceptionCode.UNAUTHENTICATED_USER_ERROR){
+                    userSignout("timeout");
+        }
+       addCommonMessage(data.message); 
+       return;
+    }
+}
+$("#recent-orders").flexigrid({
+        url: 'orderhandle?action='+Constants.Order.ORDER_LIST+'&strategyid='+currstrategy.strategyid,
+        dataType: 'json',
+        preProcess: formatRecentOrder,
+        colModel : [
+                {display: 'Date', name : 'initiatetime', width : 60, sortable : true, align: 'right'},
+                {display: 'Symbol', name : 'symbol', width : 60, sortable : true, align: 'right'},
+                {display: 'Quantity', name : 'quantity', width : 40, sortable : false, align: 'right'},
+                {display: 'Order<br>Price', name : 'pricetype', width : 40, sortable : false, align: 'right'},
+                
+                {display: 'B/S', name : 'opentype', width : 20, sortable : true, align: 'center'},
+                {display: 'Term', name : 'term', width : 30, sortable : false, align: 'right'},
+                {display: 'Status', name : 'quantity', width : 60, sortable : true, align: 'right'},
+                {display: 'Execution<br>Price', name : 'executionprice', width : 60, sortable : false, align: 'right'},
+                {display: 'Execution<br>Time', name : 'executiontime', width : 60, sortable : false, align: 'right'},
+                {display: 'Action', name : 'action', width : 120, sortable : false, align: 'center', hide:show},
+                {display: 'Comment', name : 'comment', width : 1, sortable : false, align: 'center', hide:true}
+                ],
+        searchitems : [
+                {display: 'Symbol', name : 'symbol', isdefault: true}
+                ],
+        sortname: "initiatetime",
+        sortorder: "desc",
+        usepager: true,
+        title: 'Recent Orders',
+        useRp: true,
+        rp: 15,
+        showTableToggleBtn: true,
+        width: 700,
+        height : 'auto',
+        nowrap: false
+    });
+    
+
+}); 
+  </script>
+  

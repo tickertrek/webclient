@@ -1,0 +1,319 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+   
+ 
+      
+    <div id="tickertalk" style="float:left;overflow:auto;">
+         
+        
+            <div  style="float:left;padding:5px;width:850px; font-size: 1.5em; margin-bottom:10px">
+               <div style="float:left;font-size: 1.3em;margin-top: 2px;" >    <ul id="ticker01" >
+                        <li><span>10/10/2007</span><a href="#">The first thing ...</a></li>
+                        <li><span>10/10/2007</span><a href="#">End up doing is ...</a></li>
+                        <li><span>10/10/2007</span><a href="#">The code that you ...</a></li>
+                <!-- eccetera -->
+                        </ul>
+                </div>
+                
+                <div style="float:right;">
+                <input  id ="ticker" name="ticker"  style="width:120px;height:30px;margin-top: 2px;float:right;">
+                <div style="float:right;"><button id="searchticker" >Search</button></div>
+                </div>
+            </div>
+               
+                
+                
+                    <!--
+                    <div style="clear:both;margin:20px;"><label  style="width:100px;float:left;margin-right:10px">Investment Meter: </label>
+                        <div id="meter"  style="width:250px;float:left;margin-right:10px"></div>
+                        <input type="text" disabled="true" id="meterval" value="0" style="color:#f6931f; font-weight:bold;float:left;width:30px;margin-right:10px"/>
+                    </div>
+                     -->
+                     <div  class="module" style="float:left;clear:left; margin-top: 10px;padding:10px;width:500px">
+                         <div id="commenttext" style="float:left;margin-top: 10px;">
+
+                                <textarea cols="65" rows="2" id ="comment" name ="comment" class="value" 
+                                   onclick="if ( value == 'Enter your comment here...' ) { value = ''; }"
+                                   onblur="if( value == '' || value.toString().trim(value).length == 0){ value = 'Enter your comment here...'; }">Enter your comment here...</textarea>
+                          </div>
+                          <div style="margin:10px;clear:both;">
+                                <button id="submit" >Submit</button>
+                          </div>
+
+                     </div>
+                     
+                     <!--
+                    <div class="bubble" style="margin-top: 0px;width:477px;float:left;">
+                            <div class="bubbleHeader"></div>
+                            <div class="bubbleInner" style="font-size: 1.5em;float:left;">
+                                <textarea cols="40" rows="2" id ="comment" name ="comment" ></textarea>
+                                <div style="margin: 0px;float:right;"><input type="button"   id="submit"  value="Share"/></div>
+                            </div>
+                    </div>
+                     -->
+       <div  class="ui-widget-content ui-corner-all" style="padding:0px;width:254px;float:right;">
+        <h2 class="ui-widget-header ui-corner-all" style="width:250px;float:right;margin:0px;padding: 2px;">Most Searched Ticker</h2>
+		<div id="searched-ticker" style="padding:30px;margin:10px;">
+                    <label  >#WIPRO</label><label>#TCS</label>
+
+                </div>
+	</div>
+        <div  class="ui-widget-content ui-corner-all" style="padding:0px;width:254px;float:right;clear:right;margin-top: 10px;">
+        <h2 class="ui-widget-header ui-corner-all" style="width:250px;float:right;margin:0px;padding: 2px;">Most Discussed Ticker</h2>
+		<div id="searched-ticker" style="padding:30px;margin:10px;">
+                    <label  >#WIPRO</label><label>#TCS</label>
+
+                </div>
+	</div>
+
+         <div id="comments" style="padding: 0px; margin-top: 20px;width:550px;float:left;">
+      </div>
+      <input type="button" style="width:550px;height:30px;clear:both;" value="More">           
+                
+      
+
+       
+      
+       </div>
+      
+      
+     
+   <script type="text/javascript">
+        var toggle;
+        var replyId = "0";
+        var requested;
+        function loadComments(ticker){
+            $('#comments').html("");
+            $.ajax({
+                    type: "post",
+                    url: "genericuseractionpublic",
+                    dataType: "json",
+                    data:'action=gettickertalk&ticker='+ticker,
+                    error:function(){
+                        addCommonMessage("There is some error while looking up comments for ticker!");
+                    },
+                    success:function(data){
+                        if(data.status == 'success') {
+                            var comments = data.data;
+                            var bgcolor;
+                            var border;
+                            toggle = true;
+                            if(data.resultsize == '0') {
+                                  $("#comments").append("<div id='nocomments' align='left'>"
+                                  +"There is no existing comment for this ticker. Be the first one to comment."
+                                  +"</div>"
+                                    );
+                              }
+                            for(key in comments) {
+                                if(toggle){
+                                    bgcolor = "#AAA";
+                                    toggle = false;
+                                    border = "none";
+                                } else {
+                                    bgcolor = "#FFF";
+                                    toggle = true;
+                                    border = "1px solid #666";
+                                }
+                                $('#comments').append(
+                            "<div style='padding:10px;float:left;margin-top:2px;' class='module'>"
+                             + "<div class='avatar' style='float:left;'>"
+                             +"</div>"
+                             +" <div style='float:left; width:450px;'>"
+                             +"<a name='user' class='username' href='"+comments[key].commentedbyid+"'>"+comments[key].commentedbyname+"</a>"
+                             +"<a name='user' class='username' style='float:right' href='"+"id"+"'>"+"id"+"</a>"
+                             +"<div style='font-size:1.3em;margin-top: 5px;'>"+ comments[key].comment+"</div>"
+                             +"<div style='float:left; margin-top: 5px;><div class='msgDate' style='float:left'>Posted:"
+                             +comments[key].commentdate+"</div>"
+                             +"<div style='float:right;'><a name='reply' href="+comments[key].commentid
+                             +">Reply</a></div></div></div></div>");
+                             /*
+                                $('#comments').append("<div style='background-color:"+bgcolor+"; border:"+border+"'>"
+                                    +"<div style='float:left; padding-top:10px; padding-bottom:20px;"
+                                    +"padding-right: 40px; padding-left: 15px'>Commented by: "
+                                    +"<a name='user' href='"+comments[key].commentedbyid+"'>"
+                                    +comments[key].commentedbyname
+                                    +"</a></div>"
+                                    +"<div style='"+" background-color:"+bgcolor
+                                    +"; padding-top:10px; padding-bottom:20px;  padding-left: 10px;'> <div>"
+                                    +"<h3> Ticker: "+ticker+"&nbsp; &nbsp; &nbsp; Date: "
+                                    +comments[key].commentdate+"&nbsp; &nbsp; &nbsp; Meter: "
+                                    +comments[key].meter+"</h3></div>"
+                                    +"<div align='right' style='padding-right:30px'><a name='reply' href="
+                                    +comments[key].commentid+">Reply</a></div>"
+                                    +"<hr > <div style='padding-left: 150px;'>"
+                                    +comments[key].comment+"</div> </div></div>");*/
+                            }
+                            modifyReplyNUserLinks();
+                        }if(data.status == 'error')
+                                addCommonMessage(data.message);
+                    }
+            });
+        }
+        function modifyReplyNUserLinks(){
+            $('#comments div div a').click(function(e){
+                e.preventDefault();
+                var tagName = $(e.target).attr('name');
+                var linkval = $(e.target).attr('href');
+                //alert("name:"+tagName);
+                if('reply' == tagName){
+                    replyId = linkval;
+                    $('#comment').focus();
+                    //alert("reply:"+linkval);
+                } else if('user' == tagName){
+                    //Go to user page.
+                    loadUserPage(linkval);
+                }
+                return false;
+            });
+        }
+        function loadUserPage(userId){
+            //alert("loading user page:"+userId);
+        }
+        jQuery('#tickertalk').ready(function() {
+              $('#meter').slider({
+                    range: false,
+                    min: 0,
+                    max: 100,
+                   // step: filtermenu[field][2],
+                   // values: [ 0, 100 ],
+                    slide: function( event, ui ) { // set the text showing the slider number slide event
+                        var meter = ui.value;
+                        $('#meterval').val(meter);
+                    }
+                });
+              //$('#meter').slider({ value: 0 });
+              //$('#submit').button();
+            //  $('#searchticker').button();
+
+              $( "#ticker" ).autocomplete({
+                    source: "publicdatahandle?action="+Constants.PublicData.SYMBOL_LOOKUP,
+                    minLength: 3,
+                    select: function( event, ui ) {
+                            /* we can fire some event like get the price for the symbol*/
+                        if(ui.item){
+
+                            event.preventDefault();
+                            var i = ui.item.value.indexOf(':');
+                            var j = ui.item.value.indexOf(')');
+                            if(i != -1 && j != -1){
+                                var code = ui.item.value.substr(i+1,j-i-1);
+                                $("#ticker").attr('value',code);
+                                i = ui.item.value.indexOf('(');
+                            }
+                            //requested = true;
+                            //alert("i:"+i+",j:"+j+",code:"+code);
+                            loadComments(code);
+
+                        }
+
+                    }/*,
+                    change: function(){
+                        if(!requested)
+                        {
+                            //getQuote();
+                            requested = true;
+                        }
+
+
+                    }*/
+
+
+                });
+                
+              $('#submit').button();
+
+              $('#submit').click(function (e){
+                  e.preventDefault();
+                  if(profile == null){
+                    addCommonMessage("Please login to be able to post comment on ticker");
+                    return;
+                  }
+                  var meter = 0//$('#meter').slider( "option", "value" );
+                  var comment = $('#comment').serialize();
+                  var ticker = $('#ticker').serialize();
+                  if($('#ticker').val() == null || $('#comment').val() == null){
+                      addCommonMessage("You have to select a Symbol and write comment to post.");
+                      return;
+                  }
+                  var params = 'action=posttickercomment&'+ticker+'&'+comment+'&meter='+meter;
+                  //alert("params:"+params);
+                  var bgcolor;
+                  var border;
+                  if(toggle){
+                        bgcolor = "#C3D9FF";
+                        toggle = false;
+                        border = "none";
+                    } else {
+                        bgcolor = "#FFF";
+                        toggle = true;
+                        border = "1px solid #666";
+                    }
+                  $.ajax({
+                    type: "post",
+                    url: "genericuseractionauthenticated",
+                    dataType: "json",
+                    data: params,
+                    error:function(){
+                        addCommonMessage("There is some error while submitting your comment!");
+                    },
+                    success:function(data){
+                        if(data.status == 'success') {
+                            var postedComment = data.data;
+                            $("#nocomments").hide();
+                            $('#comments').append(
+                            "<div style='padding:10px;float:left;' class='module'>"
+                             + "<div class='avatar' style='float:left;'>"
+                             +"</div>"
+                             +" <div style='float:left; width:450px;'>"
+                             +"<a name='user' class='username' href='"+postedComment.commentedbyid+"'>"+postedComment.commentedbyname+"</a>"
+                             +"<a name='user' class='username' style='float:right' href='"+"id"+"'>"+"id"+"</a>"
+                             +"<div style='font-size:1.3em;margin-top: 5px;'>"+ postedComment.comment+"</div>"
+                             +"<div style='float:left; margin-top: 5px;><div class='msgDate' style='float:left'>Posted:"
+                             +postedComment.commentdate+"</div>"
+                             +"<div style='float:right;'><a name='reply' href="+postedComment.commentid
+                             +">Reply</a></div></div></div></div>");
+
+
+                           /* $('#comments').append("<div style='background-color:"+bgcolor+"; border:"+border+"'>"
+                                +"<div style='float:left; padding-top:10px; padding-bottom:20px;"
+                                +"padding-right: 40px; padding-left: 15px'>Commented by: "
+                                +"<a name='user' href='"+postedComment.commentedbyid+"'>"
+                                +postedComment.commentedbyname
+                                +"</a></div>"
+                                +"<div style='"+" background-color:"+bgcolor
+                                +"; padding-top:10px; padding-bottom:20px;  padding-left: 10px;'> <div>"
+                                +"<h3> Ticker: "+$('#ticker').val()+" &nbsp; &nbsp; &nbsp; Date: "
+                                +postedComment.commentdate+"&nbsp; &nbsp; &nbsp; Meter: "
+                                +postedComment.meter+"</h3></div>"
+                                +"<div align='right' style='padding-right:30px'><a name='reply' href="
+                                +postedComment.commentid+">Reply</a></div>"
+                                +"<hr > <div style='padding-left: 150px;'>"
+                                +postedComment.comment+"</div> </div></div>");*/
+                            $('#meter').slider({ value: 0 });
+                            $('#meterval').val('0');
+                            $('#comment').val('');
+                            modifyReplyNUserLinks();
+                        }if(data.status == 'error')
+                                addCommonMessage(data.message);
+                    }
+                  });
+              });
+              
+              $('#searchticker').button()
+                                .click(function (e){
+                                      e.preventDefault();
+                                      if($('#ticker').val() == null){
+                                          addCommonMessage("Please select a symbol name.");
+                                          return;
+                                      }
+                                      loadComments($('#ticker').val());
+                                  });
+
+                                  $("ul#ticker01").liScroll();
+                            });
+
+   </script>

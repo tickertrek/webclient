@@ -1,0 +1,155 @@
+
+     <div id="csignup" style="float:left;">  
+        <div id="tips" style="padding:5px; font-size: 1.2em;"></div>
+        
+        <div  class="ui-widget-content ui-corner-all" style="padding:10px;float:right;margin-top:0px;border: 1px solid #13518E;width:675px;">
+            <div style=" float:left;">
+            <div style="float:left;width:400px">
+                <div id="contesttitle" style="font-size: 20px;font-weight: bold;padding: 10px;"></div>
+                <img height="100" style="float: left; padding-right: 0px" src="images/trophy.jpg">
+                <div id="description" style="color:#39C ;font-size: 15px !important;padding:10px;"></div>
+             </div>
+            <div style="float:right;width:250px;">
+                <div class="header-blue" style="float:right;font-size: 20px!important;margin-top: 5px;"> <div style="float:left;width:140px;">Prize Money:</div> <div id ="prizemoney" style="float:right;width:100px;text-align: right;"></div></div>
+                 <div class="header-green" style="float:right;font-size: 10px!important;margin-top: 5px;"> <div style="float:left;width:140px;">Start Date:</div> <div id ="startdate" style="float:right;width:100px;text-align: right;"></div></div>   
+                 <div class="header-green" style="float:right;font-size: 10px!important;margin-top: 5px;"> <div style="float:left;width:140px;">End Date:</div> <div id ="enddate" style="float:right;width:100px;text-align: right;"></div></div>
+                 <div class="header-green" style="float:right;font-size: 10px!important;margin-top: 5px;"> <div style="float:left;width:140px;">Initial Balance:</div> <div id ="initialbalance" style="float:right;width:100px;text-align: right;"></div></div>
+                 <div class="header-green" style="float:right;font-size: 10px!important;margin-top: 5px;"> <div style="float:left;width:140px;">Market:</div> <div id ="market" style="float:right;width:100px;text-align: right;"></div></div>
+                 <div class="header-green" style="float:right;font-size: 10px!important;margin-top: 5px;"> <div style="float:left;width:140px;">Instrument:</div> <div id ="instrumentoptions" style="float:right;width:100px;text-align: right;"></div></div>
+                  
+
+            </div>
+            </div>
+        <div id="csignup-ranking-block" style="width:200px; float:left;display:none !important;">
+             <div id="csignup-ranking-header1" class="header-blue" style="float:left;width:180px;font-size:12px!important;">Top 5 Performers</div>
+                <table id="csignup-ranking"   style="float:left;">
+                    <tr id="csignup-ranking-header2" class="header-blue" style="font-size:12px !important;width:100%!important;"><td >Ranking</td><td >User</td><td style="text-align: right;">Overall Gain</td></tr>
+                </table>
+         </div>
+        <div id="csignup-block" style="float:right !important; width:400px;display:none;">
+             <div   style="float:left;margin-top: 10px;font-size: 15px;" >Rules and Terms of Contest:</div>      
+             <div  id="rules" class="disabled-textarea" style="float:right;margin-left:10px;margin-top: 10px;width:400px;height:100px;">
+
+
+        <p class="helpAnswer"><span style="font-weight: bolder;">1. Prize Eligibility :</span>
+
+        <br/>a. Ranking  is determined based on overall return (realized and unrealized combined ) of your contest strategy. In case of a tie additional performance parameters will be considered and will be announced after contest.
+        <br/>b. To be eligible for a prize for any contest you have to make at least 10 trades for that contest.
+        <br/>c. You will be disqualified if you participate in a contest from more than one account.
+        <br/>d. The posted ranking list is unofficial and subject to terms and conditions of TickerTrek™ and contest rules.
+        <br/>e. All account information will be verified after the announcement of the winner. During this time TickerTrek™ will communicate with the winner through email for additional information. TickerTrek™ will issue an award after receiving and verifying all requested information. The whole process might take up to 3-4 weeks from the contest ending date. 
+        <br/><br/>
+        <span style="font-weight: bolder;">2. Trading Period: </span>
+        Each contest has an explicit start date and end date. Contestants are not allowed to place any order before and after those dates respectively. Start and end dates can be found in the contest page. However, contestants are encouraged to register for the contest as soon it showed up in the website.
+        <br/><br/>
+        <span style="font-weight: bolder;">3. Initial Balance :  </span>
+        Initial balance is indicated in the contest page and is non negotiable.
+        <br/><br/>
+        <span style="font-weight: bolder;">5. Position Constraint :</span>
+        Traders may have a maximum of 25% of initial balance invested in one particular stock.
+        <br/><br/>
+        <span style="font-weight: bolder;">4. Order Processing:</span>
+        <br/>a. You can place Market, Limit and Stop orders.We do not support short selling right now.  Due to the nature of our delayed market data feed, it takes approximately 10-15 minutes to start processing an order.
+
+        <br/>b. You are not allowed to update/cancel market order during market hours. However, you can  Update/Cancel any Limit/Stop orders approximately after 10-15 minutes from order submission time (provided the order was not executed by then). You can place/update/cancel any order when market is close.
+
+        <br/>c. You are allowed to place an order even though you have not enough purchasing power. However, when the order gets triggered it might get canceled due to insufficient fund in your account. You can see the reason of your order cancellation in the Recent order page by clinking on the status of your order.
+        <br/><br/>
+        <span style="font-weight: bolder;">5. Brokerage fee:</span>
+        A brokerage fee of 0.25% will be applied and will be deducted from your account for each executed order.
+        <br/><br/>
+                </div>
+
+         <div style="margin:5px;padding:0px;font-size: 1.2em;width:400px;float:right;">
+        
+                <p >By clicking on 'I accept, Join Contest' bellow you are agreeing to the Rules, terms and conditions of the Contest.</p>
+        </div>
+            <div id="champsignup" class="btn-light-green" style="float:right;padding-left: 50px;margin-bottom: 50px;">I accept, Join Contest</div>
+         </div>   
+         </div>   
+        </div>
+      
+     <script>
+	jQuery('#csignup').ready(function() {
+		
+                //$('#csignup-block').hide();
+                //$('#csignup-ranking-block').hide();
+               //bfTrace("value of param:"+param);
+               if(param !=null && param != "")
+               {    bfTrace("param is not null");
+                   currchamp = clist[param];
+                   if(parseDate(currchamp["startdate"]) <= new Date()){
+                        $('#csignup-ranking-block').show();
+                        $( '#csignup-ranking-header1, #csignup-ranking-header1').show();
+                        $('#csignup-ranking').show();
+                        
+                    loadChampRanking(currchamp.championshipid, 'csignup-ranking');
+                   }
+                   $('#contesttitle').text(currchamp.name);
+                   
+                   $('#description').text(currchamp.description);
+                   $('#prizemoney').text(currchamp.prize+ ' '+Constants.Currency.CURRENCY_CODE[currchamp.currency] );
+                   $('#startdate').text(currchamp.startdate);
+                   $('#enddate').text(currchamp.enddate);
+                   var num = parseFloat(currchamp.initialbalance);
+                   $('#initialbalance').text(num.toFixed(0) + ' '+Constants.Currency.CURRENCY_CODE[currchamp.currency] );
+                   $('#market').text(Constants.Market.MARKET_CODE[currchamp.market]);
+                   $('#instrumentoptions').text(Constants.Instrument.INSTRUMENT_CODE[currchamp.instrumentoptions]);
+                   
+                   
+               }else
+               {      var initLoad = null;
+                      if(clist!=null){
+                             //$('#contest-current-contest').empty();
+                             for(key in clist)
+                             {    initLoad = key;
+                                  break;
+                             }  
+                      loadContentTabParam('contest/csignup.html',$('#contest-subcontent'),initLoad); 
+
+                    }
+                }
+               
+     //bfTrace("Value of doesCSignedup:"+doesCSignedup(currchamp.name));
+    if(Constants.Championship.ACTIVE == currchamp.status && !doesCSignedup(currchamp.name)){
+       
+                 $('#csignup-block').show();
+                 //$('#rules').html("<br/>a. Ranking  is determined based on overall return (realized and unrealized combined ) of your contest strategy. In case of a tie additional performance parameters will be considered and will be announced after contest.<br/>b. To be eligible for a prize for any contest you have to make at least 10 trades for that contest.");
+                 $("#champsignup").click(function(e) {
+
+                    
+                        $.ajax({
+                            type: "post",
+                            url: "strategyhandle",
+                            dataType: "json",
+                            data: "action="+Constants.Championship.CHAMP_SIGNUP+"&championshipid="+currchamp.championshipid,
+                            error:function(){
+                                alert("error occured!!!");
+                            },
+                            success:function(data){
+                               // console.log(data);
+                                if(data.status == 'success')
+                                {
+                                    
+                                            addCommonMessage( data.message);
+                                            //loadBuildTabs(data.strategy);
+                                            //$('#mychamp').append('<li><a href="'+data.strategy.strategyid+'"class="menulink">'+data.strategy.strategyname+'</a></li>');
+                                            strategylist[data.strategy.strategyid]=data.strategy;
+                                            referred = data.strategy;
+                                            setHref("/#!/strategy/"+data.strategy.strategyid);
+                                            
+                                }
+                                else
+                                    addCommonMessage( data.message);
+
+                            }
+                        }); // end of ajax
+                        
+
+
+                   });// end of click
+        }
+
+
+});
+	</script>

@@ -1,0 +1,72 @@
+<!--
+ <div class="vmenu-container" style="min-height: 500px;">
+    <ul id="navmenu-v" style="-webkit-padding-start: 0px!important">
+        <li><a href="#">About TickerTrek</a></li>
+        <li><a href="#">Strategy</a>
+          <ul style="-webkit-padding-start: 0px!important">
+            <li><a href="#">Websites currently you are following+</a>
+              <ul style="-webkit-padding-start: 0px!important">
+                <li><a href="#">qrayg.com</a></li>
+                <li><a href="#">craigerskine.com</a></li>
+                <li><a href="#">dt.qrayg.com</a></li>
+                <li><a href="#">legendofmana.info</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Sketchbook</a></li>
+            <li><a href="#">Free Interfaces</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Learn +</a>
+          <ul style="-webkit-padding-start: 0px!important">
+            <li><a href="#">Fireworks +</a>
+              <ul>
+                <li><a href="#">Aqua Button</a></li>
+                <li><a href="#">Aqua Button 2</a></li>
+                <li><a href="#">Water Drop</a></li>
+                <li><a href="#">Light FX</a></li>
+                <li><a href="#">Light FX2</a></li>
+              </ul>
+            </li>
+            <li><a href="#">CSS +</a>
+              <ul>
+                <li><a href="#">CSS Menus</a></li>
+                <li><a href="#">Sprite Nav</a></li>
+                <li><a href="#">@import</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+-->
+<!DOCTYPE html>
+<div id="help" style="float:left;">
+    <div class="vmenu-container" style="min-height: 500px;float:left;">
+    <ul id="navmenu-v" style="-webkit-padding-start: 0px!important">
+        <li><a href="/#!/help/about.html">About TickerTrek</a></li>
+        <li><a href="/#!/help/strategy.html">Strategy</a></li>
+        <li><a href="/#!/help/order.html">Order Related</a></li>
+        <li><a href="/#!/help/contest.html">Contest</a></li>
+        <li><a href="/#!/help/profile.html">Profile/Password</a></li>
+        <li><a href="/#!/help/disclaimer.html">Disclaimer</a></li>
+        <li><a href="/#!/help/terms.html">Terms of Service</a></li>
+   </ul>
+    </div>
+    <div id="help-subcontent" style="float:right;width:700px;margin-left: 10px;">
+    </div>
+</div>
+<script>
+        jQuery('#help').ready(function(){
+            if(param != null && param != ""){
+                bfTrace("helppage param:"+param);
+                loadContentTabParam('/help/'+param,$('#help-subcontent'));
+            }
+            else
+                loadContentTabParam('/help/help.html',$('#content-area'),'about.html');
+             $("#navmenu-h li,#navmenu-v li").hover(
+                function() { $(this).addClass("iehover"); },
+                function() { $(this).removeClass("iehover"); }
+              );
+        });
+</script>

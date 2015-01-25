@@ -1,0 +1,85 @@
+<div id="helpmenu4">
+    <h3 class="question"><a href="#">What is a contest?</a></h3>
+    <div>
+    <p class="helpAnswer">In TickerTrek™ you not only follow and publish your strategy but also can compete with other fellow investors to learn and earn recognition in the TickerTrekking community. You can also win cash prizes or other awards with every new contest. When you sign up for a contest a strategy will be automatically created under “My Contest” tab. Now you can start investing in this strategy (which is enrolled in the contest) by following the rules and guidelines of the contest. If you perform better than others in this strategy, you will win that TickerTrek® contest.  
+
+        <br/><br/><span class="helpNote">NOTE: While investing in a contest-strategy, make sure that you place your orders in the proper strategy. A contest strategy would be named like “&lt; contest name&gt (&lt; your user name &gt)” (e.g. “August Contest (CoolUser99)”).     </span> </p>  
+    
+    </div>
+   
+    <h3 class="question"><a href="#">How can I participate in a Contest?</a></h3>
+    <div>
+        <p class="helpAnswer">Look for listed contests in TickerTrek™ and go to contest page by clicking “Join Now” button. In the contest page you agree to the terms and conditions of the contest and press “I Accept, Join Contest” button to join the contest. A strategy  “&lt; contest-name&gt; (&lt; your-user-name &gt;)” will be created under “My Contest” menu. Now you are all set to start investing in the contest. Every time you want to place an order in the contest  make sure you are investing in the strategy “&lt;contest-name&gt; (&lt;your-user-name&gt;)”.   Look for listed contests in TickerTrek® and go to the contest page by clicking the “Join Now” button. In the contest page you will be given the option to agree to the terms and conditions of the contest and press “I Accept, Join Contest”. A strategy  “&lt; contest name&gt; (&lt;your user name&gt;)” will be created under “My Contest” menu. Now you are all set to start investing in the contest. Every time you want to place an order in the contest  make sure you are investing in the strategy “&ltcontest name&gt; (&lt;your user name&gt;)”.   
+                    </p>  
+                    <br/><br/>
+<span class="helpNote">NOTE : Please read and understand the rules and guidelines of the contest carefully. You will be disqualified if you don’t follow them. </span>
+
+    
+    </div>
+    
+    <h3 class="question"><a href="#">What are the general contest rules?</a></h3>
+    <div>
+        <p class="helpAnswer"><span style="font-weight: bolder;">1. Prize Eligibility :</span>
+            
+<br/>a. Ranking  is determined based on overall return (realized and unrealized combined) of your contest strategy. In the case of a tie, additional performance parameters will be considered and will be announced after the contest.
+<br/>b. To be eligible for a prize for any contest you have to make at least 10 trades for that contest.
+<br/>c. You will be disqualified if you participate in a contest from more than one account.
+<br/>d. The posted ranking list is unofficial and subject to terms and conditions of TickerTrek® and the contest rules.
+<br/>e. All account information will be verified after the announcement of the winner. During this time, TickerTrek® will communicate with the winner through email for additional information. TickerTrek®™ will issue an award after receiving and verifying all requested information. The whole process may take up to 3-4 weeks from the contest ending date. 
+<br/><br/>
+<span style="font-weight: bolder;">2. Trading Period: </span>
+Each contest has an explicit start and end date. Contestants are not allowed to place any order before and after those dates respectively. Start and end dates can be found in the contest page. Contestants are encouraged to register for the contest as soon it becomes available.
+<br/><br/>
+<span style="font-weight: bolder;">3. Initial Balance :  </span>
+Initial balance is indicated in the contest page and is non negotiable.
+<br/><br/>
+<span style="font-weight: bolder;">5. Position Constraint :</span>
+Traders may have a maximum of 25% of initial balance invested in one particular stock. 
+<br/><br/>
+<span style="font-weight: bolder;">4. Order Processing:</span>
+<br/>a. You can place Market, Limit and Stop orders.We do not support short selling right now.  Due to the nature of our delayed market data feed, it takes approximately 10-15 minutes to start processing an order.
+
+<br/>b. You are not allowed to update/cancel market order during market hours. However, you can  Update/Cancel any “Limit”/”Stop” orders approximately after 10-15 minutes from order submission time (provided the order was not executed). You can place/update/cancel any order when the market is close.
+
+<br/>c. You are allowed to place an order even though you have not enough purchasing power. However, when the order gets processed, it may be canceled due to insufficient funds in your account. You can see the reason of your order cancellation in the Recent order page by clicking on the status of your order.
+<br/><br/>
+<span style="font-weight: bolder;">5. Brokerage fee:</span>
+A brokerage fee of 0.25% will be applied and will be deducted from your account for each executed order; this feature is to simulate how actual market purchasing occurs.
+<br/><br/>
+<span class="helpNote">NOTE: Please check out for any additional rules related to specific contest in the contest page. In case of a conflict the rule specified in the contest page is applicable.  </span>
+    </p>  
+    
+    </div>
+    
+    
+    <h3 class="question"><a href="#">How can I see the performance of other contestants?</a></h3>
+    <div>
+    <p class="helpAnswer">Go the the contest page and click on the user name of other contestant in the ranking list. It will take you to the contest-strategy of that user. You can see the performance and any closed trades of that strategy.</p>  
+    
+    </div>
+    
+    <h3 class="question"><a href="#">Can I follow a contest-strategy?</a></h3>
+    <div>
+    <p class="helpAnswer">No, you can not follow a contest-strategy while the contest is running.</p>  
+    
+    </div>
+    
+    <h3 class="question"><a href="#">How does TickerTrek® determine contest winners?</a></h3>
+    <div>
+    <p class="helpAnswer">Unless specified otherwise, the winner will be determined based on overall return (realized and unrealized combined) of contest-strategy. In case of a tie additional performance parameters will be considered and will be announced after contest. If there is a different criteria applied in a particular contest then it will be specified in the contest page.</p>  
+    
+    </div>
+    
+    <h3 class="question"><a href="#">I won a Contest. How will TickerTrek® send me the award?</a></h3>
+    <div>
+    <p class="helpAnswer">All account information will be verified after the announcement of the winner. During this time TickerTrek®™ will communicate with the winner through email for additional information and will also specify how the award will be issued. TickerTrek®™ will issue an award after receiving and verifying all requested information. The whole process might take up to 3-4 weeks from the contest ending date. </p>
+    </div>
+</div>
+<script>
+        jQuery('#helpmenu4').ready(function(){
+            $( "#helpmenu4" ).accordion({
+			autoHeight: false,
+			navigation: true
+		});
+        });
+</script>

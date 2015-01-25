@@ -1,0 +1,97 @@
+
+    
+  
+     <div id="earnings" style="float:left;overflow:auto;">
+     <div style="float:left">
+         
+         <div class="header-blue" style="float:left;margin-right: 20px;"> <span style="float:left;width:200px;">Total Earnings:</span> <div id="total-earning" style="float:right;width:100px;text-align: right;"></div></div>
+         <div class="header-green" style="float:left;margin-right: 20px;"> <span style="float:left;width:100px;">Prize:</span> <div id="prize-earning" style="float:right;width:100px;text-align: right;"></div></div>
+         <div class="header-green" style="float:left;"> <span style="float:left;width:150px;">Subscription:</span> <div id="subscription-earning" style="float:right;width:100px;text-align: right;"></div></div>
+                
+     </div>
+     
+         <div  class="ui-widget-content ui-corner-all" style=" width:300px;float:left;margin-top: 30px;">
+                    <h2 class="ui-widget-header ui-corner-all" style="margin: 0; padding: 5px;">Subscription Details</h2>
+                    <div><table id="subscription" border="2" align="center" style="width:300px; float:left;">
+                            <tr class="ui-state-default"><td >Strategy<br>Name</td><td>Followers</td><td>Fee/Month</td><td>Earnings</td></tr>
+                        </table></div>
+         </div>
+    
+
+     
+         <div  class="ui-widget-content ui-corner-all" style=" width:354px;float:left;margin: 30px 0px 0px 30px;;">
+                    <h2 class="ui-widget-header ui-corner-all" style="margin: 0; padding: 5px;width:354px;">Championship Details</h2>
+                    <div><table id="championship" border="1" width="354px" align="center" style=" float:left;">
+                            <tr class="ui-state-default"><td>Championship</td><td>Position</td><td>Prize Money</td></tr>
+                        </table></div>
+         </div>
+   
+     </div>
+            
+ <script>
+jQuery('#earnings').ready(function() {
+       
+    function populateEarningsTable() {
+
+                // if (strategylist == null ) return;
+
+             for(key in strategylist)
+              {
+                  if(strategylist[key].relation == Constants.Strategy.OWNER && strategylist[key].type==Constants.Strategy.TYPE_GENERAL)
+                      getGStrategyRow(strategylist[key]).appendTo($("#subscription"));
+                  else
+                      getCStrategyRow(strategylist[key]).appendTo($("#championship"));
+               }
+    }
+    
+    function getCStrategyRow(s){
+      
+      var trow = $("<tr>");                              
+      var td = $("<td>");
+      td.text(s.strategyname)
+      td.appendTo(trow);
+      
+      
+      td = $("<td>");
+      td.text(s.followers);
+      td.appendTo(trow);
+
+      
+      td = $("<td>");
+      td.text(new Number(s.earning).toFixed(2));
+      td.appendTo(trow);
+      return trow;
+    }
+    
+    function getGStrategyRow(s){
+      
+      var trow = $("<tr>");                               
+      var td = $("<td>");
+      td.text(s.strategyname)
+      td.appendTo(trow);
+
+      
+
+      td = $("<td>");
+      td.text(s.fee);
+      td.appendTo(trow);
+
+      td = $("<td>");
+      td.text(new Number(s.earning).toFixed(2));
+      td.appendTo(trow);
+      
+      
+      return trow;
+    }
+    if(profile!=null){
+        var e = new Number(profile.prizeearning);   
+        var p = new Number(profile.subscriptionearning);
+        $('#total-earning').text(new Number(e.valueOf()+p.valueOf()).toFixed(2));
+        $('#prize-earning').text(e.toFixed(2));
+        $('#subscription-earning').text(p.toFixed(2));
+    }
+    populateEarningsTable();
+
+});
+
+</script>

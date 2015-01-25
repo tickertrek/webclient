@@ -1,0 +1,90 @@
+<div id="userpage">    
+  
+
+ <div  id="userpage-leftpane" class="module" style="float:left;padding:0px; width:250px; min-height: 800px;height:100% !important; margin-top:0px; float:left;clear:left;background:whitesmoke;">
+     <div class="profile-leftpane-header">Rajesh's Expertise</div>
+     <div id="userpage-profile" style="clear:both;">
+        
+        <div class="profile-tag" > Stock</div>
+        <div class="profile-tag" style=""> Technical</div>
+        <div class="profile-tag"> Short Term</div>
+        <div class="profile-tag"> Intermediate</div>
+    </div>
+     <div class="profile-leftpane-header">Rajesh's Public Strategies</div>
+     <div id="userpage-profile" style="clear:both;">
+        
+        <div class="profile-leftpane-strategy-link" > Strategy 1 thsi is a big name still it should fit</div>
+        <div class="profile-leftpane-strategy-link" > Strategy2</div>
+        <div class="profile-leftpane-strategy-link"> Strategy 3</div>
+        <div class="profile-leftpane-strategy-link"> Strategy4</div>
+        <span class="profile-leftpane-strategy-link" style="text-align: center;"> See All</span>
+    </div>
+     
+     <div class="profile-leftpane-header">Rajesh's Contest</div>
+     <div id="userpage-profile" style="clear:both;">
+        
+       <div class="profile-leftpane-strategy-link" > Strategy 1</div>
+        
+    </div>
+     
+    
+     
+</div>
+    <div id="userpage-basic" class="module" style="float:left;width:600px;height:60px;margin-left: 10px;padding:10px;">
+        <div style="padding-top:5px;border:0px !important;float:left;"><img src="images/avatar.jpg" style="width:50px;" /></div>
+        <div style="float:left;margin-left:10px;">
+            <div id="userpage-name" style="float:left;clear:right!important;font-size: 20px;font-weight: bold;">Rajesh</div>
+            <div id="userpage-profession" style="float:left;clear:left!important">Finance Advisor</div>
+            <div id="userpage-aboutme" style="float:left;clear:left;">About me should go here</div>
+        </div>
+    </div>
+   
+    <div id="userpage-timeline" style="float:left;width:600px;margin-left: 10px;">
+        <div id="profile-t2-update">
+            <div style="float:left;clear:both;padding:10px;border-bottom: 1px #39C solid;width:100%">
+               <div style="float:left;clear:both;"> Rajesh bought 234 quantity of TCS@BSE with Market order @243.34</div>
+                <div class="btn-green" style="clear:right;font-size: 10px!important;float:right;">ReOrder</div>
+            </div>
+            
+            <div style="clear:both;padding:10px;border-bottom: 1px #39C solid;">
+                Rajesh sold TCS@BSE with Market order @243.34. Made 23% gain with this trade
+                <div class="btn-green" style="clear:both;">ReOrder</div>
+            </div>
+        </div>
+        <div id="jTweetsAnywhereSample">
+        </div>
+    </div>
+   
+</div>
+
+
+<script>
+    jQuery('#userpage').ready(function() {
+       
+        $('#jTweetsAnywhereSample').jTweetsAnywhere({
+    username: ['twitterapi', 'ChromiumDev'],
+    count: 10,
+    showTweetFeed: {
+        showTimestamp: {
+            refreshInterval: 15
+        },
+        autorefresh: {
+            mode: 'trigger-insert',
+            interval: 60
+        },
+        paging: { mode: 'more' }
+    },
+    onDataRequestHandler: function(stats, options) {
+        bfTrace("stats.dataRequestCount:"+stats.dataRequestCount);
+        if (stats.dataRequestCount < 200) {
+            return true;
+        }
+       /* else {
+            stopAutorefresh(options);
+            alert("To avoid struggling with Twitter's rate limit, we stop loading data after 10 API calls.");
+        }*/
+    }
+});
+        
+    });
+</script>

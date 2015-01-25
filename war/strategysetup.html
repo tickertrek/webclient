@@ -1,0 +1,280 @@
+
+<div id="strategy-setup" class="ui-widget-content ui-corner-all" style="float:left;padding:10px;width:700px;">
+        <div id="tips" style="padding:5px; font-size: 1.2em;"></div>
+    <form id="setup">
+        <div style="clear:both;" id="strategynameblock">
+            <label for="settings-strategyname" class="display"> Strategy Name: </label>
+            <input  id ="settings-strategyname" name="strategyname" class="value" style="width:150px;height:20px" >
+            <span class="help" title="Please choose a strategy name that reflects the investment style."><img src="images/help.jpg" style="width:20px;height:20px;padding-top:8px;"/></span>
+        </div>
+
+        <div style="clear:both;">
+            <label for="settings-market"  class="display">Market: </label>
+            <div id="settings-market" style="margin:5px;float:left;">
+                    <input type="radio" id="india" name ="market" value="0" checked/><label for="india">Indian</label>
+                    <input type="radio" id="us"  name ="market" value="1" DISABLED/><label for="us">US</label>
+                    <input type="radio" id="uk" name ="market" value="2" DISABLED/><label for="uk">UK</label>
+
+            </div>
+            <span class="help" title="US and British market will be available soon."><img src="images/help.jpg" style="width:20px;height:20px;padding-top:8px;"/></span>
+        </div>
+        <div style="clear:both;">
+            <label for="settings-instrumentoptions" class="display">Instruments: </label>
+            <div id="settings-instrumentoptions" style="margin:5px;float:left;">
+                    <input type="radio" id="setup-stock" name="instrumentoptions" value="0" checked/><label for="setup-stock">Stock</label>
+                    <input type="radio" id="setup-option" name="instrumentoptions"  value="1" DISABLED/><label for="setup-option">Option</label>
+                    <input type="radio" id="setup-future" name="instrumentoptions" value="2" DISABLED/><label for="setup-future">Future</label>
+                    <input type="radio" id="setup-forex" name="instrumentoptions"  value="3" DISABLED/><label for="setup-forex">Forex</label>
+            </div>
+            <span class="help" title="Option, Future and Forex tading are comming soon."><img src="images/help.jpg" style="width:20px;height:20px;padding-top:8px;"/></span>
+        </div>
+
+        <div   style="clear:both;">
+            <label for="settings-initialbalance" class="display">Initial Balance: </label>
+            <!--<input  id ="initialbalance" name ="initialbalance" class="value" style="width:80px;height:20px">-->
+            <select id="settings-initialbalance" name="initialbalance" class="value">
+		<option  value="100000.0" checked>100000</option>
+		<option value="1000000.0">1000000</option>
+                <option value="1.0E7">10000000</option>
+            </select>
+            <div class="settings-currency"  value="0"  style="font-size: 1.2em;padding-top:5px;">
+            
+            </div>
+            <span class="help" title="Select a realistic initial balance."><img src="images/help.jpg" style="width:20px;height:20px;padding-top:8px;"/></span>
+            
+        </div>
+
+        <div style="clear:both;">
+            <label for="settings-listingtype" class="display">Listing Type: </label>
+            <div id="settings-listingtype" style="margin:5px;float:left;">
+                    <input type="radio" id="public" name="listingtype" value="0" /><label for="public">Public</label>
+                    <input type="radio" id="private" name="listingtype"  value="1" checked/><label for="private">Private</label>
+            </div>
+            <span class="help" title="A public strategy will be listed in our strategy search and people will be able to subscribe for a fee. If its a practice strategy then keep it private. You can change the listing type anytime in the strategy settings. "><img src="images/help.jpg" style="width:20px;height:20px;padding-top:8px;"/></span>
+        </div>
+        <div id="settings-feeblock" class="module" style="float:left;margin-top:10px;padding:10px;width:400px;">
+            <div>
+                <label for="free" class="display">Follow me for Free!* </label>
+                <input  type="checkbox" id ="" name="free" class="value" style="width:50px;height:20px" CHECKED DISABLED/>
+            </div>
+            <div   style="clear:both;">
+            <label for="settings-freetrial" class="display">Free Trial Period: </label>
+            <!--<input  id ="initialbalance" name ="initialbalance" class="value" style="width:80px;height:20px">-->
+            <select id="settings-freetrial" name="freetrial" class="value" DISABLED>
+		<option  value="0">None</option>
+		<option value="15">15 Days</option>
+                <option value="30">30 Days</option>
+            </select>
+            <span class="help" title="Your followers will receive all trades during trial period for free."><img src="images/help.jpg" style="width:20px;height:20px;padding-top:8px;"/></span>
+            <p></p>
+            
+            </div>
+            
+            
+            <div style="clear:both;">
+                <label for="settings-fee" class="display"> Monthly Fee : </label>
+                <input  id ="settings-fee" name="fee" class="value" style="width:50px;height:20px" value="0" DISABLED/>
+                <div class="settings-currency" name = "currency" value="0" style="font-size: 1.2em;" ></div>
+                <span class="help" title="After free trial period your followers will pay a subscription fee to receive all trades in this strategy. You can select 0 to make it a free strategy."><img src="images/help.jpg" style="width:20px;height:20px;padding-top:8px;"/></span>
+
+            </div>
+            <p style="font-size: smaller">For the time being let others follow you for free. Once you build a reputation you can charge.</p>
+        </div>
+
+        <div  id="descriptionblock" style="clear:both;">
+            <p class="display">Description: </p>
+            <textarea  id ="settings-description" name ="description" class="value" style="width:350px;height:70px;"></textarea>
+        </div>
+        <span class="help" title="A simple description about your strategy."><img src="images/help.jpg" style="width:20px;height:20px;padding-top:8px;"/></span>
+        </form>
+        <div id="settings-terms">
+       <!-- <textarea cols="60" rows="8" style="margin-left:100px;" DISABLED>
+        TickerTrek Terms and Conditions.
+
+            Welcome to TickerTrek!
+
+            
+            April 16, 2007
+        </textarea>--> 
+
+         <div style="clear:both;margin:5px;padding:0px;font-size: 1.2em;">
+        
+                <p >By clicking on 'Create Strategy' bellow you are agreeing to the <a href="javascript:loadContentTabParam('help/help.html',$('#content-area'),'help/terms.html');" style="color:#39C">terms and conditions of service</a>.</p>
+        </div>
+        </div>
+
+         <div id="settings-new" class="btn-blue" value="new" style="float:right;margin-right:50px;clear:both">Create Strategy</div>
+         <div id="settings-save" class="btn-blue" value="save" style="float:right;margin-right:50px;clear:both">Save</div>
+</div>
+        <script>
+	jQuery('#strategy-setup').ready(function() {
+                /*$('#strategyname').tooltip({
+                        delay: 0,
+                        showURL: false,
+                        bodyHandler: function() {
+                                return $("This a different example....").html();
+                        }
+                });*/
+                //$('.help').tooltip();
+		$( "#settings-market").buttonset();
+                $( "#settings-listingtype" ).buttonset();
+                $( "#settings-instrumentoptions" ).buttonset();
+
+
+               $('#settings-market input:radio').click(function(e) {
+                   if($(e.target).val() == 0){
+                        $('.settings-currency').text("INR");
+                        $('.settings-currency').attr('value',0);
+                   }
+                    else if($(e.target).val() == 1){
+                        $('.settings-currency').text("USD");
+                        $('.settings-currency').attr('value',1);
+                    }
+                    else if($(e.target).val() == 2){
+                        $('.settings-currency').text("GBP");
+                        $('.settings-currency').attr('value',2);
+                    }
+
+                    });
+               $('#settings-feeblock').hide();
+               $('#settings-listingtype input:radio').click(function(e) {
+                   if($(e.target).val() == 0)
+                        $('#settings-feeblock').show();
+                   else
+                       $('#settings-feeblock').hide();
+
+                    });    
+               if(currstrategy !=null)
+               {   $('#settings-terms').hide();
+                   $('#settings-strategyname').attr("value",currstrategy.strategyname);
+                   $('#settings-strategyname').attr("disabled",true);
+                   //$('#settings-initialbalance [value="'+ profile.initialbalance+'"]').attr('checked','true');//$( "#holdingperiod" ).buttonset('refresh');   
+                   $('#settings-initialbalance').val(currstrategy.initialbalance);
+                   $('#settings-initialbalance').attr("disabled",true);
+                   //$('#currency').text(currstrategy.currency);
+                   $( '.settings-currency').text("INR");
+                   //$('#settings-market [id="'+ currstrategy.market+'"]').attr('checked','checked');
+                   //$('#settings-market').buttonset("refresh");
+                   //$('#settings-market').buttonset("option","disabled",true);
+                   //$('#settings-instrumentoptions [id="setup-'+ currstrategy.instrumentoptions+'"]').attr('checked','checked');
+                   //$('#settings-instrumentoptions').buttonset("refresh");
+                   $('#settings-listingtype [value="'+ currstrategy.listingtype+'"]').attr('checked','checked');
+                   $('#settings-listingtype').buttonset("refresh");
+                  // console.log("listingtype;"+currstrategy.listingtype+":"+Constants.Strategy.LISTING_PUBLIC);
+                   if(currstrategy.listingtype == Constants.Strategy.LISTING_PUBLIC){
+                       $('#settings-feeblock').show();
+                       $('#settings-fee').attr('value',currstrategy.fee);
+                      // console.log("free trial:"+currstrategy.freetrial);
+                       $('#settings-freetrial').val(currstrategy.freetrial);
+                   }
+                   $('#settings-description').attr("value",currstrategy.description);
+
+                   //$( "#settings-save" ).button();
+                   $( "#settings-new" ).hide();
+
+               }else
+                {
+                    $('#strategytitle').text('Untitled Strategy');
+                    $('#settings-strategyname').change(function(){
+                       $('#strategytitle').text($('#settings-strategyname').attr('value'));
+                    });
+                    $( '.settings-currency').text("INR");
+                    //$( "#settings-new" ).button();
+                    $( "#settings-save" ).hide();
+
+                    //$('#market #india').attr('checked','checked');
+                    //$('#market').buttonset("refresh");
+                    //$( "#instrumentoptions #setup-stock" ).attr('checked','checked');
+                    //$( "#instrumentoptions").buttonset("refresh");
+                   // $('#listingtype #private').attr('checked','checked');
+                   //$('#listingtype').buttonset("refresh");
+
+                }
+
+
+                //var strategyname = $( "#settings-strategyname" ),
+                        //market = $( "#settings-market" ),
+                        //initialbalance = $( "#settings-initialbalance" ),
+			//instrumentoptions = $( "#settings-instrumentoptions" ),
+                        //currency = $("#settings-currency" ),
+			//setup = $( [] ).add( strategyname ).add( market ).add( currency ).add( instrumentoptions );
+                       
+
+                $("#settings-new, #settings-save").click(function(e) {
+                   // console.log("New button");
+                    var bValid = true;
+                    //setup.removeClass( "ui-state-error" );
+                    //tips.html("")
+                    var tips =  $( "#commonmessage" );
+                   $('#settings-strategyname, #settings-initialbalance, #settings-fee, #commonmessage').removeClass( "ui-state-error" );
+                    
+                    bValid = bValid && checkLength( $( "#settings-strategyname" ), 2, 50,tips, "Strategy name should be in between 2-50 letters." );
+                    bValid = bValid && checkRegexp( $( "#settings-strategyname" ), /^[a-z]([0-9a-z_ ])+$/i, tips,  "Strategy name may consist of only a-z." );
+                   // if(currstrategy.listingtype == Constants.Strategy.LISTING_PUBLIC)
+                        bValid = bValid && checkRange($('#settings-fee'), 0, 10000000,tips, "Monthly fee should be in between 0 and 10000000." );
+
+		    var req = $('#setup').serialize() + '&action='+$(this).attr('value');
+                    
+                    if($(this).attr('value') == 'save')
+                        req += ('&strategyid='+currstrategy.strategyid);
+                       // console.log("req:"+req);
+                        if(bValid){
+                        $.ajax({
+                            type: "post",
+                            url: "strategyhandle",
+                            dataType: "json",
+                            data: req,
+                            error:function(){
+                                alert("error occured!!!");
+                            },
+                            success:function(data){
+                               // console.log(data);
+                                if(data.status == 'success')
+                                {
+                                    if(data.action=='new')
+                                    {
+                                            addCommonMessage( data.message);
+                                           // console.log("new Strategy from strategysetup:"+data.strategy.strategyid);
+                                            $('#mystrategy').append('<li><a href=\"javascript:loadContentTabParam(\'build/strategy.html\',$(\'#build-subcontent\'),'+data.strategy.strategyid+ ');\" class="menulink">'+data.strategy.strategyname+'</a></li>');
+                                            strategylist[data.strategy.strategyid]=data.strategy;
+                                           /* $('#strategymenu div li a').click(function( e ) {
+                                                 e.preventDefault();
+                                                 var si = $(e.target).attr('href');
+
+                                                 var st = strategylist[si];
+                                                 //$('#strategytitle').text($(e.target).text());
+                                                 //console.log("Selected strategyid: " + $(e.target).attr('href'));
+                                                 loadBuildTabs(si);
+                                                 return false;
+                                           });*/ /// done with the click function this might go the the global space
+                                          // console.log("new Strategy from strategysetup:"+data.strategy.strategyname);
+                                           loadBuildTabs(data.strategy.strategyid);
+                                           //loadContentTabParam('build/strategy.html',$('#build-subcontent'),data.strategy.strategyid);
+                                    }else if(data.action == 'save')
+                                    {
+                                        strategylist[data.strategy.strategyid]=data.strategy;
+                                        currstrategy = data.strategy;
+                                        addCommonMessage( data.message);
+                                    }
+
+
+                                  //  $("#buildtabs").tabs("remove", 0);
+                                  //  $('#ready').hide();
+                                }
+                                else{
+                                
+                                   if(data.errorCode == Constants.ExceptionCode.UNAUTHENTICATED_USER_ERROR)
+                                       userSignout("timeout");
+                                   addCommonMessage(data.message);
+                                }
+
+                            }
+                        });
+                        }
+
+
+                   });
+
+
+	});
+	</script>

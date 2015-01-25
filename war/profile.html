@@ -1,0 +1,210 @@
+<div id="profile" style="font-size: 12px;">
+  
+   <div  class="ui-widget-content ui-corner-all" style="margin-top:5px;overflow:auto;border: 1px solid #13518E;padding:20px;">
+       <div style="float:left;">
+   <form id="profile-update">
+   <div style="clear:both;" >
+            <label for="p-name" class="display">Full Name: </label>
+            <input  id ="p-name" name="fullname" class="value" style="width:200px;height:20px">
+           
+   </div>
+   <div style="clear:both;" >
+            <label for="p-nickname" class="display">User Name: </label>
+            <input  id ="p-nickname" name="nickname" class="value" style="width:200px;height:20px" DISABLED>
+   </div>
+      
+      <div style="clear:both;">
+        <label for="assetclass" class="display">Mostly traded asset class: </label>
+            <div id="assetclass" style="margin:5px;float:left;font-size: 12px;">
+                    <input type="radio" id="p-s" name="assetclass" value="0" /><label for="p-s">Stock</label>
+                    <input type="radio" id="p-o" name="assetclass" value="1" /><label for="p-o">Option</label>
+                    <input type="radio" id="p-fu" name="assetclass" value="2" /><label for="p-fu">Future</label>
+                    <input type="radio" id="p-fo" name="assetclass" value="3" /><label for="p-fo">Forex</label>
+            </div>
+        </div>
+
+      <div style="clear:both;">
+        <label for="style" class="display">Investment Style: </label>
+            <div id="style" style="margin:5px;float:left;">
+                    <input type="radio" id="tech" name="style" value="0"  /><label for="tech">Technical</label>
+                    <input type="radio" id="funda" name="style"  value="1"/><label for="funda">Fundamental</label>
+                    <input type="radio" id="growth" name="style"  value="2" /><label for="growth">Growth</label>
+                    <input type="radio" id="value" name="style"  value="3" /><label for="value">Value</label>
+                    
+            </div>
+        </div>
+      <div style="clear:both;">
+        <label for="holdingperiod" class="display">Typical Holding Period: </label>
+            <div id="holdingperiod" style="margin:5px;float:left;">
+                    <input type="radio" id="p-dt" name="holdingperiod" value="0" /><label for="p-dt">Day Trader</label>
+                    <input type="radio" id="p-st" name="holdingperiod"  value="1" /><label for="p-st">Swing Trader</label>
+                    <input type="radio" id="p-sht" name="holdingperiod"  value="2"/><label for="p-sht">Short Term Trader</label>
+                    <input type="radio" id="p-li" name="holdingperiod"  value="3" /><label for="p-li">Long Term Investor</label>
+
+            </div>
+        </div>
+      <div style="clear:both;">
+        <label for="experience" class="display">Experience Level: </label>
+            <div id="experience" style="margin:5px;float:left;" >
+                    <input type="radio" id="p-n" name="experience" value="0" /><label for="p-n">Experience</label>
+                    <input type="radio" id="p-i" name="experience"  value="1"/><label for="p-i">Intermediate</label>
+                    <input type="radio" id="p-p" name="experience"  value="2"/><label for="p-p">Professional</label>
+           </div>
+        </div>
+
+   <div style="clear:both;" >
+            <label for="profession" class="display">Profession: </label>
+            <input  id ="profession" name="profession" size="20px" class="value" style="width:200px;height:20px;">
+   </div>
+
+      <div  style="clear:both;">
+            <p class="display">Introduction: </p>
+            <textarea  id ="aboutme" name ="aboutme" class="value" style="width:400px;height:80px;"></textarea>
+        </div>
+
+    <div style="clear:both;" >
+            <label for="p-cemail" class="display">Contact Email: </label>
+            <input  id ="p-cemail" name="contactemail" class="value" style="width:200px;height:20px">
+   </div>
+    <div style="clear:both;" >
+            <label for="p-pemail" class="display">Primary Email (login id): </label>
+            <input  id ="p-pemail" name="primaryemail" class="value" style="width:200px;height:20px" DISABLED>
+   </div>
+       
+   </form> 
+           </div>
+        <div id="p-up123" class="btn-green" style="float:right;margin-right:50px">Update Profile</div>
+   </div>
+
+      <div  class="ui-widget-content ui-corner-all" style="margin-top:5px;overflow:auto;border: 1px solid #13518E;padding:20px;">
+        <div style="float:left;">
+          <form id="change-password">  
+         <div style="clear:both;" >
+            <label for="p-cp" class="display">Current Password: </label>
+            <input  id ="p-cp" type ="password" name="oldpassword" class="value" style="width:150px;height:20px"/>
+        </div>
+         <div style="clear:both;" >
+            <label for="p-np" class="display">New Password: </label>
+            <input  id ="p-np" type ="password" name="newpassword" class="value" style="width:150px;height:20px"/>
+        </div>
+         <div style="clear:both;" >
+            <label for="p-rnp" class="display">Retype New Password: </label>
+            <input  id ="p-rnp" type="password" name="renewpassword" class="value" style="width:150px;height:20px"/>
+        </div>     
+              
+        </form>  
+      </div>
+          <div id="p-changepasswd" class="btn-green" style="float:right;margin-right:50px;">Change Password</div>
+      </div>
+    </div>
+ <script >
+        jQuery('#profile').ready(function(){
+            
+            $( "#assetclass" ).buttonset();
+            $( "#style" ).buttonset();
+            $( "#holdingperiod" ).buttonset();
+            $( "#experience" ).buttonset();
+            //$( "#p-up123" ).button();
+            //$( "#p-changepasswd" ).button();
+            
+            //console.log(profile.assetclass);
+            $('#p-name').attr('value',profile.fullname);
+            $('#p-nickname').attr('value',profile.nickname);
+            $('#assetclass [value="'+ profile.assetclass+'"]').attr('checked',true);$( "#assetclass" ).buttonset('refresh');   
+            $('#style [value="'+ profile.style+'"]').attr('checked','true');$( "#style" ).buttonset('refresh');   
+            $('#holdingperiod [value="'+ profile.holdingperiod+'"]').attr('checked','true');$( "#holdingperiod" ).buttonset('refresh');   
+            $('#experience [value="'+ profile.experience+'"]').attr('checked','true');$( "#experience" ).buttonset('refresh');   
+            $('#profession').attr('value',profile.profession);
+            $('#aboutme').attr('value',profile.aboutme);
+            $('#p-cemail').attr('value',profile.contactemail);
+            $('#p-pemail').attr('value',profile.email);
+            
+            $( "#p-changepasswd" ).click(function(e){
+                var bValid = true;
+                var tips =  $( "#commonmessage" );
+                $('#p-cp, #p-np, #p-rnp').removeClass( "ui-state-error" );
+                bValid = bValid && checkLength( $('#p-cp'),  5, 16, tips, "Password must be between 5 and 16 characters." );
+                bValid = bValid && checkLength( $('#p-np'),  5, 16, tips, "Password must be between 5 and 16 characters." );
+                bValid = bValid && checkRegexp( $('#p-np'), /^([0-9a-zA-Z])+$/, tips, "Password field only allow : a-z 0-9" );
+                bValid = bValid && checkIdentical( $('#p-np'), $('#p-rnp'), tips, "Passwords do not match." );
+                if(bValid){
+                    $.ajax({
+                            type: "post",
+                            url: "genericuseractionauthenticated",
+                            dataType: "json",
+                            data:$('#change-password').serialize()+'&action='+Constants.Profile.PASSWORD_UPDATE,
+                            error:function(){
+                                addCommonMessage( "something bad happened.");
+                            },
+                            success:function(data){
+
+                                if(data.status == 'success')
+                                {
+                                    $('#p-cp, #p-np, #p-rnp').attr('value','');
+                                    addCommonMessage("Password update successfull.");
+
+
+                                }
+                                else{
+                                    if(data.errorCode == Constants.ExceptionCode.UNAUTHENTICATED_USER_ERROR)
+                                        userSignout("timeout");
+                                   addCommonMessage(data.message);
+                                   
+                                }
+                            }
+                    });
+                    
+                }
+            });
+            
+            $('#p-up123').click(function(e) {
+                var bValid = true;
+                var tips =  $( "#commonmessage" );
+                $('#p-name, #profession, #aboutme, #p-cemail').removeClass( "ui-state-error" );
+
+                bValid = bValid && checkLength( $('#p-name'), 2, 50, tips, "Name should be in between 2 and 50 characters." );
+                bValid = bValid && checkLength( $('#profession'), 0,40,tips, "Profession should be in between 0 and 40 characters." );
+                bValid = bValid && checkLength( $('#p-cemail'),6, 40, tips, "Contact email should be in between 6 and 40 characters." );
+
+
+                bValid = bValid && checkRegexp( $('#p-name'), /^[a-z]([0-9a-z_ ])+$/i, tips, "Name may consist of only a-z." );
+                bValid = bValid && checkRegexp( $('#p-cemail'), /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i,tips,"Invalid Email address (example address@gmail.com).");
+
+                if ( bValid ) {
+                    
+                    
+                //console.log($('#profile-update').serialize());
+
+            //var fdata = $('#p-name').serialize()+'&'+$('#assetclass').serialize()+'&'+$('#style').serialize()+'&'+$('#holdingperiod').serialize()+'&'+$('#experience').serialize()+'&'+$('#profession').serialize()+'&'+$('#aboutme').serialize()+'&'+$('#p-cemail').serialize();
+              var fdata = $('#profile-update').serialize();
+              $.ajax({
+                            type: "post",
+                            url: "genericuseractionauthenticated",
+                            dataType: "json",
+                            data:fdata+'&action='+Constants.Profile.PROFILE_UPDATE,
+                            error:function(){
+                                addCommonMessage( "something bad happened.");
+                            },
+                            success:function(data){
+
+                                if(data.status == 'success')
+                                {  
+                                    profile= data.userProfile;  
+                                    addCommonMessage("Profile update successfull.");
+                                    
+                                }
+                                else{
+                                    if(data.errorCode == Constants.ExceptionCode.UNAUTHENTICATED_USER_ERROR)
+                                        userSignout("timeout");
+                                    addCommonMessage(data.message);
+                                }
+                            }
+                    });
+
+
+                }
+            });
+            
+        });
+
+    </script>

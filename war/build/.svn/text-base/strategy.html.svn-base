@@ -1,0 +1,298 @@
+<div id="strategy">
+<div id="titleblock" class="ui-state-default" style="float:left;padding:10px;width:710px; font-size: 1.2em; margin:0px;display:none;">
+      
+      <label id="strategytitle" style="font-color: #07689d;font-size: 20px;"></label>
+      <div id="bunwatch"   name="unwatch" class="btn-blue" style="padding-right:1px;float:right">Bookmarked</div>
+      <div id="bwatch"   name="watch" class="btn-blue" style="width:135px;float:right;">Bookmark</div>
+      <div id="bfollow"  name="follow" class="btn-green" style="width:60px;float:right;">Follow</div>
+      <div id="bunfollow"  name="unfollow" class="btn-green"style="padding-right:1px;float:right">Following</div>
+      <div id="bnew"  name="new" class="btn-blue" style="padding-right:1px;float:right">New Strategy</div>
+      <div id="bdelete"  name="delete" class="btn-red" style="padding-right:1px;float:right">Delete</div>
+</div>
+
+
+      <div id="buildtabs" style="float:left;width:725px;margin:0px;border:0px;">
+            <ul id="buildtabslist">
+                
+
+            </ul>
+     </div>
+      
+      <div id="delete-confirm" title="Delete Strategy?">
+	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+            This will permanently delete your strategy <span id="delete-starategy"></span> and all relevant information. Are you sure?</p>
+      </div>
+
+</div>
+<script>
+    $('#bunfollow').hover(
+            function(){
+                    $('#bunfollow').html("Unfollow");
+                    $('#bunfollow').css("background","#FF0033");
+                }, 
+                    function(){
+                        $('#bunfollow').html("Following");
+                        $('#bunfollow').css("background","#007D08");
+                    });
+$('#bfollow, #bunfollow').click(function(e){
+                   e.preventDefault();
+                   $.ajax({
+                            type: "post",
+                            url: "strategyhandle",
+                            dataType: "json",
+                            data:"action="+$(e.target).attr('name')+'&strategyid='+currstrategy.strategyid,
+                            error:function(){
+                                alert("error occured!!!");
+                            },
+                            success:function(data){
+                               // console.log(data);
+                                if(data.status == 'success')
+                                {
+                                    if(data.action == Constants.Strategy.STRATEGY_FOLLOW)
+                                    {
+                                        currstrategy.relation = Constants.Strategy.FOLLOWER;
+                                       // var i = strategylist.length;
+                                       //$('a[href="'+currstrategy.strategyid+'"]').remove();
+                                        $('#ifollow').append('<li><a href=\"/#!/strategy/'+currstrategy.strategyid+ '" class="menulink">'+currstrategy.strategyname+'</a></li>');
+                                       /* $('#strategymenu div li a').click(function( e ) {
+                                                 e.preventDefault();
+                                                 var si = $(e.target).attr('href');
+
+                                                 var st = strategylist[si];
+                                                 $('#strategytitle').text($(e.target).text());
+                                                 loadBuildTabs(st, null);
+                                                 return false;
+                                           }); /// done with the click function this might go the the global space
+                                           */
+                                        strategylist[currstrategy.strategyid] = currstrategy;
+                                        addCommonMessage(data.message);
+                                        //setHref("/#!/strategy/"+);
+                                        //loadBuildTabs(currstrategy.strategyid);
+                                        loadContentTabParam('build/build.html',$('#content-area'),currstrategy.strategyid);
+
+                                    }else if(data.action == Constants.Strategy.STRATEGY_UNFOLLOW)
+                                    {
+                                        currstrategy.relation = Constants.Strategy.PUBLIC;
+                                        //var si = $('a[href="'+currstrategy.strategyid+'"]').attr('href');
+                                        delete strategylist[currstrategy.strategyid];
+                                        addCommonMessage(data.message);
+                                        //loadBuildTabs(currstrategy.strategyid);
+                                        
+                                        //$('a[href=\"javascript:loadContentTabParam(\'build/strategy.html\',$(\'#build-subcontent\'),'+currstrategy.strategyid+ ');\"]').remove();
+                                        //console.log('a[href="'+currstrategy.strategyid+'"]');
+                                        // temp solution should not reload the whole page
+                                        loadContentTabParam('build/build.html',$('#content-area'),currstrategy.strategyid);
+                                    }
+
+                                }else
+                                    addCommonMessage(data.message);
+                            }
+                        });
+                   
+                });
+
+function loadBuildTabs(strategyid)
+{
+     //console.log("new strategy:"+currstrategy.strategyid);
+
+     while($( "#buildtabs" ).tabs("length") > 0)
+         $("#buildtabs").tabs("remove", 0);
+     $('#bfollow, #bunfollow, #bwatch, #bunwatch, #bnew, #bdelete').hide();
+     
+     if(strategyid == null && profile == null) {
+         $( "#buildtabs" ).tabs("add", "loginform.html", "Login/Signup", 0);
+         return;
+     }
+     $('#titleblock').show();
+     currstrategy = null;
+     if(strategylist != null) currstrategy = strategylist[strategyid];
+     
+     if(currstrategy == null && searchresults!= null) currstrategy = searchresults[strategyid];
+     
+     
+     if(currstrategy == null ){
+         $('#bnew').show();
+         $( "#buildtabs" ).tabs("add", "strategysetup.html", "Setup");
+         return;
+     }
+     //bfTrace("new strategy:"+currstrategy.strategyname);
+     $('#strategytitle').html(currstrategy.strategyname);
+
+     if(profile != null)
+         $('#bnew').show();
+     if(currstrategy.relation == Constants.Strategy.OWNER)
+     {
+         $( "#buildtabs" ).tabs("add", "summary.html?strategyid="+currstrategy.strategyid, "Summary");
+         $( "#buildtabs" ).tabs("add", "enterorder.html?strategyid="+currstrategy.strategyid, "New Order");
+         $( "#buildtabs" ).tabs("add", "recentorders.html?strategyid="+currstrategy.strategyid, "Recent Orders");
+         $( "#buildtabs" ).tabs("add", "closedtrades.html?strategyid="+currstrategy.strategyid, "Closed Trades");
+         $( "#buildtabs" ).tabs("add", "portfolio.html", "Portfolio");
+         //$( "#buildtabs" ).tabs("add", "performance.jsp?strategyid="+currstrategy.strategyid, "Performance");
+         if(currstrategy.type == Constants.Strategy.TYPE_GENERAL)
+            $( "#buildtabs" ).tabs("add", "strategysetup.html?strategyid="+currstrategy.strategyid, "Settings");
+         $('#bdelete').show();
+
+     }else if(currstrategy.relation == Constants.Strategy.FOLLOWER) // if its a follower
+       {
+         $( "#buildtabs" ).tabs("add", "summary.html?strategyid="+currstrategy.strategyid, "Summary");
+         $( "#buildtabs" ).tabs("add", "recentorders.html?strategyid="+currstrategy.strategyid, "Recent Orders");
+         $( "#buildtabs" ).tabs("add", "closedtrades.html?strategyid="+currstrategy.strategyid, "Closed Trades");
+         $( "#buildtabs" ).tabs("add", "portfolio.html", "Portfolio");
+         //$( "#buildtabs" ).tabs("add", "performance.jsp?strategyid="+currstrategy.strategyid, "Performance");
+         $('#bunfollow').show();
+       } else // all others
+       {
+            $( "#buildtabs" ).tabs("add", "summary.html?strategyid="+currstrategy.strategyid, "Summary");
+            $( "#buildtabs" ).tabs("add", "closedtrades.html?strategyid="+currstrategy.strategyid, "Closed Trades");
+           // $( "#buildtabs" ).tabs("add", "performance.jsp?strategyid="+currstrategy.strategyid, "Performance");
+           if(currstrategy.type == Constants.Strategy.TYPE_GENERAL){
+               $('#bfollow').show();
+                if(strategy.relation == Constants.Strategy.WATCHER)
+                    $('#bunwatch').show();
+                else
+                    $('#bwatch').show();
+           }
+       }
+      $( "#buildtabs" ).tabs("select",0);
+ }
+
+
+
+    jQuery('#strategy').ready(function() {
+                $( "#buildtabs" ).tabs({
+                        select:2,
+			ajaxOptions: {
+				error: function( xhr, status, index, anchor ) {
+					$( anchor.hash ).html(
+						"Couldn't load this tab. We'll try to fix this as soon as possible. " +
+						"If this wouldn't be a demo." );
+				}
+			}
+		});
+                
+                //if(profile != null) $('#titleblock').show();
+                loadBuildTabs(param);
+                
+                $('#bnew').click(function(e){
+                   e.preventDefault();
+                   $('#bfollow, #bunfollow, #bwatch, #bunwatch, #bdelete').hide();
+                   while($( "#buildtabs" ).tabs("length") > 0)
+                         $("#buildtabs").tabs("remove", 0);
+                        currstrategy = null; // this means we r opening a new strategy and and not strategy settings
+                                          // currstrategy will again be set up during loadBuildTabs()
+                         $( "#buildtabs" ).tabs("add", "strategysetup.html", "Setup");
+                });
+                
+                $( "#delete-confirm" ).dialog({
+			resizable: false,
+                        autoOpen: false,
+			height:140,
+                        position:'right',
+			modal: true,
+			buttons: {
+				"Delete Strategy": function() {
+                                        $.ajax({
+                                                type: "post",
+                                                url: "strategyhandle",
+                                                dataType: "json",
+                                                data:"action="+Constants.Strategy.DELETE_STRATEGY+'&strategyid='+currstrategy.strategyid,
+                                                error:function(){
+                                                    alert("error occured!!!");
+                                                },
+                                                success:function(data){
+                                                   // console.log(data);
+                                                    if(data.status == 'success')
+                                                    {
+                                                        //var si = $('a[href="'+currstrategy.strategyid+'"]').attr('href');
+                                                        delete strategylist[currstrategy.strategyid];
+                                                        //$('a[href="'+currstrategy.strategyid+'"]').remove();
+                                                        addCommonMessage(data.message);
+                                                        //$( "#tabsjs" ).tabs("load",2);
+                                                        loadContentTabParam('build/build.html',$('#content-area'));
+                                                        //$('#content-area').load("build/build.html");
+
+                                                    }else
+                                                        addCommonMessage(data.message);
+                                                }
+                                            });
+					$( this ).dialog( "close" );
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+                $('#bdelete').click(function(e){
+                   e.preventDefault();
+                   $('#delete-confirm').dialog('open');
+                   $( "#delete-confirm" ).dialog({ position: 'center' });
+                   
+
+                });
+                
+                $('#bunwatch').hover(
+                    function(){
+                            $('#bunwatch').html("Remove Bookmark");
+                            $('#bunwatch').css("background","#FF0033");
+                        }, 
+                            function(){
+                                $('#bunwatch').html("Bookmarked");
+                                $('#bunwatch').css("background","#0090DB");
+                            });
+                
+                $('#bwatch, #bunwatch').click(function(e){
+                   e.preventDefault();
+                   $.ajax({
+                            type: "post",
+                            url: "strategyhandle",
+                            dataType: "json",
+                            data:"action="+$(e.target).attr('name')+'&strategyid='+currstrategy.strategyid,
+                            error:function(){
+                                alert("error occured!!!");
+                            },
+                            success:function(data){
+                               // console.log(data);
+                                if(data.status == 'success')
+                                {
+                                    if(data.action == Constants.Strategy.STRATEGY_WATCH)
+                                    {
+                                        currstrategy.relation = Constants.Strategy.WATCHER;
+                                       // var i = strategylist.length;
+                                       
+                                        $('#iwatch').append('<li><a href=\"/#!/strategy/'+currstrategy.strategyid+ '" class="menulink">'+currstrategy.strategyname+'</a></li>');
+                                        /*$('#strategymenu div li a').click(function( e ) {
+                                                 e.preventDefault();
+                                                 var si = $(e.target).attr('href');
+
+                                                 var st = strategylist[si];
+                                                 $('#strategytitle').text($(e.target).text());
+                                                 loadBuildTabs(st, null);
+                                                 return false;
+                                           }); /// done with the click function this might go the the global space
+                                            */
+                                        strategylist[currstrategy.strategyid] = currstrategy;
+                                        addCommonMessage(data.message);
+                                        loadContentTabParam('build/build.html',$('#content-area'),currstrategy.strategyid);
+
+                                    }else if(data.action == Constants.Strategy.STRATEGY_UNWATCH)
+                                    {
+                                        currstrategy.relation = Constants.Strategy.PUBLIC;
+                                        //var si = $('a[href="'+currstrategy.strategyid+'"]').attr('href');
+                                        delete strategylist[currstrategy.strategyid];
+                                        //$('a[href="'+currstrategy.strategyid+'"]').remove();
+                                        addCommonMessage(data.message);
+                                        //loadBuildTabs(currstrategy.strategyid);
+                                        loadContentTabParam('build/build.html',$('#content-area'),currstrategy.strategyid);
+
+                                        //console.log('a[href="'+currstrategy.strategyid+'"]');
+                                    }
+
+                                }else
+                                    addCommonMessage(data.message);
+                            }
+                        });
+
+                });
+               
+    });
+</script>

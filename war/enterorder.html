@@ -1,0 +1,140 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<div id="enterorder">   
+ <div class="ui-widget-content ui-corner-all" style="float:left;padding:10px;"> 
+   <form id="et">
+	
+      
+    
+       <div  id="power" class="ui-widget-content ui-corner-all" style="margin-top:10px;padding:0px; width:250px;float:right;clear:right;overflow:auto;">
+        <h2 class="ui-widget-header ui-corner-all" style="margin: 0; padding: 5px;">Current Purchasing Power</h2>
+		<div class="biggreennumber" style="padding: 10px;">
+
+                </div>
+	</div>
+       
+        
+    <div id="instrument"  style="float:left">
+		<input type="radio" id="stock" name="instrument" value="0" checked="checked"/><label for="stock">Stocks</label>
+               <input type="radio" id="option" name="instrument"  value="1" DISABLED/><label for="option">Options</label>
+                <input type="radio" id="future" name="instrument" value="2" DISABLED/><label for="future">Futures</label>
+                <input type="radio" id="forex" name="instrument"  value="3"DISABLED/><label for="forex">Forex</label>
+	</div>
+    
+     <div id="symbolblock" style="float:left;clear:left">
+	<label for="symbol" class="et-display">Symbol: </label>
+	<input  id ="symbol" name="symbol" class="value" style="padding:0px; width:100px;">
+     </div>
+
+       <div style="float:left">
+	<label class="et-display">Exchange: </label>
+	<select id="ex" name="ex" class="value">
+		<option  value="0">BSE</option>
+		<option value="1">NSE</option>
+               <!-- <option value="2" >Others</option>-->
+	</select>
+     </div>
+     
+    
+       <div  id="quantityblock" style="clear:left">
+	<label for="quantity" class="et-display">Quantity: </label>
+	<input id="quantity" name="quantity" class="value" style="padding:0px; width:50px;"/>
+     </div>
+     <input type ="hidden" id="orderid" name="orderid" value="0">
+
+     <div id="ordertypeblock" style="float:left">
+	<label class="et-display">Order Type: </label>
+	<select id="ordertype" name="ordertype" class="value">
+		<!--<option value="">Select one...</option>-->
+		<option  value="0">Buy</option>
+		<option value="1">Sell</option>
+		<!--<option value="2">Sell Short</option>
+		<option value="3">Sell to Cover</option>-->
+	</select>
+     </div>
+
+        <div   style="margin-top:10px;padding:0px; width:260px;float:right;clear:right;">
+            <h2 class="ui-widget-header ui-corner-all" style="margin: 0; padding: 5px;">Delayed Quote</h2>
+            <div class="module" style="float:left;width:250px;padding:5px;">
+                <div id="quote-company" style="clear:left;float:left;font-size: 22px;color:#0281CF;"></div>
+                <div id="quote-symbol" style="float:left;padding:5px;"></div>
+                <div id="quote-price"  class="module" style="clear:left;float:left;font-size: 15px;color:black;text-align: center;width:100px;background-color: #DFEFFC; padding:5px;"></div>
+                <div id="quote-change"  style="float:left;font-size: 12px;margin-left: 15px;margin-top:8px"></div>
+
+                    <div style="float:left;clear:left;margin-top:15px;">Time: </div>
+                    <div id="quote-time"  style="float:left;font-weight: bold;margin-left: 10px;margin-top:15px;"></div>
+
+                <div style="float:left;margin-top:15px;clear:left;">Volume: </div>
+                <div id="quote-volume"  style="float:left;clear:right;margin-left: 10px;margin-top:15px;font-weight: bold;"></div>
+                <div style="float:left;clear:left;margin-top: 10px;">Day's High/Low: </div>
+                <div id="quote-range"  style="float:left;margin-top: 10px;margin-left: 10px;font-weight: bold;"></div>
+
+            </div>
+        </div>
+
+      <div id="pricetypeblock" style="clear:left;float:left">
+        <label class="et-display">Price Type: </label>
+	<select id="pricetype" name="pricetype" class="value">
+		<!--<option value="">Select one...</option>-->
+		<option value="2">Market</option>
+		<option value="0">Limit</option>
+		<option value="1">Stop</option>
+	</select>
+      </div>
+     
+     <div  id="priceblock" style="float:left;">
+	<label for="price" id="pricetitle" class="et-display"> </label>
+	<input id="price" name="price" value='' class="value" style="padding:0px; width:80px;"/>
+     </div>
+
+     
+     <div id="termblock" style="float:left;clear:left">
+        <label for="#term" class="et-display">Term: </label>
+	<select id="term" name="term" class="value">
+		<!--<option value="">Select one...</option>-->
+		<!--<option value="0">Good for Day</option>-->
+		<option value="1">Good till Cancel</option>
+        </select>
+     </div>
+
+       
+
+        
+      <!-- <div  class="ui-widget-content ui-corner-all" style="margin-top:10px;padding:5px; width:250px;float:left;clear:left;overflow:auto;">
+        <h2 class="ui-widget-header ui-corner-all" style="margin: 0; padding: 0.1em;">Advanced Settings</h2>
+		<div >
+
+                </div>
+	</div>-->
+
+
+</form>
+      
+       
+<div id="submitsignal" class="btn-blue" style="float:left;margin:30px;">Submit Order</div>
+</div>
+
+<div id="order-confirm" title="Confirm Order">
+	    <div id="confirm-msg" style="font-size: 12px;padding: 5px;text-align: justify;"></div>
+            <div class="header-blue" style="float:left;font-size: 12px!important;margin-top: 5px;"> 
+                <div style="float:left;width:200px;">Symbol</div> <div id="oc-symbol" style="float:right;width:100px;text-align: right;">    
+                </div></div>
+            <div class="header-blue" style="float:left;font-size: 12px!important;margin-top: 5px;"> 
+                <div style="float:left;width:200px;">Quantity</div> <div id="oc-quantity" style="float:right;width:100px;text-align: right;">    
+                </div></div>
+        <div class="header-blue" style="float:left;font-size: 12px!important;margin-top: 5px;"> 
+                <div style="float:left;width:200px;">Aprx. Total Price</div> <div id="oc-totalprice" style="float:right;width:100px;text-align: right;">    
+                </div></div>
+        <div class="header-blue" style="float:left;font-size: 12px!important;margin-top: 5px;"> 
+                <div style="float:left;width:200px;">Aprx. Brokerage Fee</div> <div id="oc-brokeragefee" style="float:right;width:100px;text-align: right;">    
+                </div></div>
+        <div style="padding:5px;text-align:justify;clear:both;"> NOTE: <span style="font-size:10px;">Market Order can not be Canceled/Modified during market opening hours.
+         Limit/Stop Order can be canceled/updated after 10-15 minutes from order submission.</span>
+         </div>
+</div>
+</div>
+ <script type="text/javascript" src="./js/enterorder.js"></script>

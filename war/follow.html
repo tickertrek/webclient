@@ -1,0 +1,136 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+   
+    
+   
+  
+  <div style="overflow: hidden;float:left;">    
+  
+   <div id="filter" style="padding: 0px;width:650px;float:left;">
+            <ul>
+
+                <li><a href="#basic">Basic Filter</a></li>
+                <li><a href="#advanced">Advanced Filter</a></li>
+            </ul>
+       <div id="basic">
+           <form id="bs">
+           
+          <div style="float:left;margin:0px 10px;">
+          <fieldset  style="border: 1px solid black;padding:10px;margin:0px">
+                <legend >Market: </legend>
+	            <input type="radio" id ="m-all" name="bs-market" value="all" checked="checked"><label for="m-all" >All Markets</label><br>
+                    <input type="radio" id ="m-india" name="bs-market" value="0" ><label for="m-india" >India</label><br>
+                    <input type="radio" id ="m-us" name="bs-market" value="1" ><label for="m-us" >US</label><br>
+                    <input type="radio" id ="m-uk" name="bs-market" value="2" ><label for="m-uk" >UK</label>
+                    
+            </fieldset>
+        </div>
+        <div   style="float:left;margin:0px 10px;">
+            <fieldset style="border: 1px solid black;padding:10px;margin:0px">
+                <legend >Trade: </legend>
+                <input type="radio" id ="i-all" name="bs-instrument" value="all" checked="checked"><label for="i-all" >Everything</label><br>
+                <input type="radio" id ="i-stock" name="bs-instrument" value="0" ><label for="i-stock" >Stock</label><br>
+                <input type="radio" id ="i-option" name="bs-instrument" value="1" ><label for="i-options" >Options</label><br>
+                <input type="radio" id ="i-forex" name="bs-instrument" value="3" ><label for="i-forex" >Forex</label>
+	    </fieldset>
+        </div>
+            
+
+        <div   style="float:left;margin:0px 10px " >
+            <fieldset  style="border: 1px solid black;padding:10px;margin:0px">
+                <legend >Strategies that are: </legend>
+		<input type="radio" id="mp" name="bs-filter1" value="maxprofit" checked="checked"> <label for="mp">Most Popular</label> <br>
+		<input type="radio" id="tg" name="bs-filter1"  value="maxprofit" /><label for="tg">Top Gainers</label><br>
+                <input type="radio" id="ma" name="bs-filter1"  value="mostactive" /><label for="ma">Most Active</label><br>
+		<!--<input type="radio" id="mc" name="bs-filter1"  value="mostconservative" /><label for="mc">Most Conservative</label><br>-->
+                <input type="radio" id="tl" name="bs-filter1"  value="toplooser" /><label for="tl">Top Losers</label>
+           </fieldset>
+	</div>
+
+        <div  style="float:left;margin:0px 10px 20px;">
+            <fieldset  style="border: 1px solid black;padding:10px;margin:0px">
+                <legend >Filter by: </legend><br>
+		<input type="checkbox" id="lr" name="bs-filter2" value="lr" > <label for="lr">Long track record</label> <br>
+		<input type="checkbox" id="ot" name="bs-filter2"  value="ot" /><label for="ot">Offers free trial</label><br>
+                <input type="checkbox" id="p3m" name="bs-filter2"  value="p3m" /><label for="p3m">Profitable Last 3<br>  Months</label><br>
+           </fieldset>
+	</div>
+          <div >
+           <div id="bsearch" class="btn-blue" style="clear:right;float:right;margin:0px 0px">Search</div>
+          </div>
+   </form>
+       </div>
+
+       <div id="advanced" style="overflow:auto">
+        
+
+                
+           <div id="fm" class="module" style=" padding:2px;width:150px;float:left;clear:left;">
+                <h2 class="ui-widget-header ui-corner-all" style="margin: 0; padding: 5px;">Add a Filter</h2>
+               
+                <div style="padding:3px; ">
+                    
+                       <a href="annualreturn" status="active" display="Anual<br> Return" class="menulink">Annual Return</a>
+                       <a href="profitfactor" status="active" display="Profit<br> Factor" class="menulink">Profit Factor</a></li>
+                       <a href="tradecount" status="inactive" display="Trade<br> Count" class="menulink">Trade Count</a></li>
+                       <a href="profittradecount" status="inactive" display="Profitable <br>Trade Count" class="menulink">Profitable Trade Count</a></li>
+                       <a href="loosingtradecount" status="inactive" display="Loosing <br>Trade Count" class="menulink">Loosing Trade Count</a></li>
+                       <a href="maxdrawdown" status="active" display="Max<br> Drawdown" class="menulink">Max Drawdown</a></li>
+                     <!--  <a href="sitescore" status="inactive" display="Site<br> Score" class="menulink">Site Score</a></li>-->
+                     <a href="age" status="inactive" display="Time Tracked<br>(days)" class="menulink">Time Tracked(days)</a></li>
+
+                </div>
+            </div>
+    
+      
+    <div>
+          <div  style="float:left;margin:0px 20px;">
+            <label style="float:left;width:50px;text-align:left">Market: </label>
+            <select id="af-market" name="bfmarket" style="float:left">
+                    <option value="all">All Markets</option>
+                    <option value="0">India</option>
+                    <option value="1">US</option>
+                    <option value="2">UK</option>
+            </select>
+        </div>
+        <div style="float:left;margin:0px 20px;">
+            <label style="float:left;width:50px;text-align:left">Trade: </label>
+            <select id="af-instrument" name="bftrade" style="float:left">
+                    <option value="all">Everything</option>
+                    <option value="0">Stock</option>
+                    <option value="1">Options</option>
+                    <!--<option value="2">Future</option>-->
+                    <option value="3">Forex</option>
+            </select>
+        </div>
+          <div >
+           <div id="asearch" class="btn-blue" style="clear:right;float:right;margin:0px 10px">Search</div>
+          </div>
+            
+           <div id="filterlist" style="float:left;">
+              
+           </div>
+    </div>
+          
+  </div>
+      
+       
+ </div>
+      <div id="f-champ-list" style="float:right;padding:0px; width:230px;">
+          
+      </div>
+       
+<div style="float:left;margin-bottom: 30px; float:left;">
+  <div id="strategyblock" style="float:left;top:20px;padding:10px; margin:10px auto" class="module">
+
+  <div id="sresults" style="margin: auto;"></div>
+</div>
+</div>  
+  
+</div>
+
+  <script type="text/javascript" src="js/follow.js"></script> 

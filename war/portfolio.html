@@ -1,0 +1,114 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+      
+    <table id="opentrades" style="display:none"></table>
+    <script type="text/javaScript">
+        function repeatTrade(id){
+            
+            setOrderFromTrade(id,false);
+            $('#buildtabs').tabs('select',1);
+        }
+        function sellTrade(id){
+            setOrderFromTrade(id,true);
+            $('#buildtabs').tabs('select',1);
+        }
+        function coverTrade(id){
+            setOrderFromTrade(id,true);
+            $('#buildtabs').tabs('select',1);
+        }
+        function setOrderFromTrade(id, reverse){
+            var tradeRow = document.getElementById('opentrades').rows['row'+id].cells;
+            
+            order = new Array();
+            order['action'] = Constants.Order.ORDER_NEW;
+            var symbol = $(tradeRow[0]).text();
+            order['symbol']= symbol.substring(0, symbol.indexOf('@'));
+            order['ex']= Constants.Exchange.EX_RCODE[symbol.substring(symbol.indexOf('@')+1)];
+            order['quantity']= $(tradeRow[1]).text();
+            order['pricetype']= Constants.Order.PRICE_RCODE["Market"]; //Always market
+            if(reverse == true)
+                order['ordertype']= (Constants.Order.ORDER_RCODE[$(tradeRow[4]).text()]+1)%2;
+            else order['ordertype']= Constants.Order.ORDER_RCODE[$(tradeRow[4]).text()];
+            order['term']= Constants.Order.TERM_RCODE["GTC"]; //Default good till cancel
+        }
+        
+        jQuery('#opentrades').ready(function() {
+            
+        var show = false;
+        // if its not the owner then action field will be hidden
+        if(currstrategy.relation != Constants.Strategy.OWNER)
+            show = true;
+        $("#opentrades").flexigrid({
+			url: 'orderhandle?action='+Constants.Trade.TRADE_PORTFOLIO+'&strategyid='+currstrategy.strategyid,
+                      	dataType: 'json',
+                        preProcess: formatPortfolio,
+			colModel : [
+                                {display: 'Symbol', name : 'symbol', width : 60, sortable : true, align: 'right'},
+                                {display: 'Quantity', name : 'quantity', width : 40, sortable : true, align: 'right'},
+				{display: 'Opening<br>Date', name : 'opendate', width : 60, sortable : true, align: 'right'},
+                                {display: 'Opening<br>Price', name : 'openprice', width : 80, sortable : true, align: 'right'},
+                                {display: 'B/S', name : 'opentype', width : 30, sortable : true, align: 'center'},
+                                {display: 'Current<br>Price', name : 'currentprice', width : 80, sortable : true, align: 'right'},
+                                {display: 'Current<br><span style="color:green">Gain</span>(<span style="color:red">Loss</span>)',
+                                    name : 'gainloss', width : 60, sortable : true, align: 'right'},
+                                {display: 'Action', name : 'action', width : 120, sortable : false, align: 'center', hide:show}
+				],
+			searchitems : [
+				{display: 'Symbol', name : 'symbol', isdefault: true},
+                                {display: 'Open Date', name : 'opendate'}
+				],
+			sortname: "opendate",
+			sortorder: "desc",
+			usepager: true,
+			title: 'Open Trades',
+			useRp: true,
+			rp: 15,
+			showTableToggleBtn: true,
+			width: 700,
+                        height : 'auto',
+			nowrap: false
+			});
+function formatPortfolio(data){
+    if(data.status=='success'){
+        for(var i=0;i<data.rows.length;i++){
+           
+            //data.rows[i].cell[0] = '<a href="/#!/strategy/'+data.rows[i].cell[0]+'">'+strategylist[data.rows[i].cell[0]].strategyname;
+            //
+            data.rows[i].cell[0] = data.rows[i].cell[0] + '<br/>'+'@'+Constants.Exchange.EXCHANGE_CODE[data.rows[i].cell[7]];
+            data.rows[i].cell[2] = dateFormatter(data.rows[i].cell[2]);
+            //data.rows[i].cell[3] =  Constants.Order.PRICETYPE_CODE[data.rows[i].cell[8]] + '<br/>'+'@'+data.rows[i].cell[3] ;
+            var orderType = data.rows[i].cell[4];
+            data.rows[i].cell[4] = Constants.Order.ORDER_CODE[data.rows[i].cell[4]];
+            data.rows[i].cell[6] = colorFormat(data.rows[i].cell[6]);
+            
+            if(orderType == Constants.Order.ORDER_BUY) //The order was for buy so, the button should be sell
+                data.rows[i].cell[7] ='<button onclick="repeatTrade(\'' + data.rows[i].id + '\')" >Repeat</button> ' +
+                    '<button onclick="sellTrade(\'' + data.rows[i].id + '\')" >Sell</button> ';
+            else 
+               data.rows[i].cell[7] ='<button onclick="repeatTrade(\'' + data.rows[i].id + '\')" >Repeat</button> ' +
+                    '<button onclick="coverTrade(\'' + data.rows[i].id + '\')" >Cover</button> ';
+
+            //data.rows[i].cell[5] = Constants.Order.TERM_CODE[data.rows[i].cell[5]];
+            /*var status = data.rows[i].cell[6];
+            data.rows[i].cell[6] = Constants.Order.ORDER_STATUS_CODE[data.rows[i].cell[6]];
+            if(status != Constants.Order.ORDER_EXECUTED){
+                data.rows[i].cell[7] = "N/A";
+                data.rows[i].cell[8] = "N/A";
+            }else
+            */
+                
+        }
+        return data;
+    }else{
+       if(data.errorCode == Constants.ExceptionCode.UNAUTHENTICATED_USER_ERROR)
+                    userSignout("timeout");
+       addCommonMessage(data.message); 
+    }
+}
+});
+
+    </script>
